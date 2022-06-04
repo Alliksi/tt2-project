@@ -11,8 +11,8 @@
 	<groupId>com.kitchen</groupId>
 	<artifactId>warehouse</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>warehouse</name>
-	<description>Kitchen warehouse</description>
+	<name>ProductMe</name>
+	<description>ProductMe - A Kitchen warehouse application</description>
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.1</spring-cloud.version>
@@ -47,6 +47,10 @@
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session-core</artifactId>
 		</dependency>
@@ -63,6 +67,11 @@
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-web</artifactId>
+			<version>2.17.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>

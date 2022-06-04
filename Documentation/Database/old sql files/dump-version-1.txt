@@ -1,0 +1,103 @@
+DROP TABLE IF EXISTS Meals;
+DROP TABLE IF EXISTS Products;
+DROP TABLE IF EXISTS Menu_content;
+DROP TABLE IF EXISTS Shelves;
+DROP TABLE IF EXISTS Storages;
+DROP TABLE IF EXISTS Deliveries;
+DROP TABLE IF EXISTS Working_time;
+DROP TABLE IF EXISTS Workers;
+DROP TABLE IF EXISTS Restaurants;
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS Delivery_companies;
+create table Users (
+	User_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	Username varchar(128) NOT NULL,
+	Password varchar(128) NOT NULL,
+	Role varchar(64) NOT NULL,
+	Enabled boolean DEFAULT NULL,
+	Name varchar(128) NOT NULL,
+	Surname varchar(128) NOT NULL,
+	Personal_code nchar(11) NOT NULL
+);
+
+create table Delivery_companies (
+	Delivery_company_ID int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	Name varchar(128) NOT NULL,
+	Registration_number varchar(11) NOT NULL
+);
+
+create table Restaurants (
+	Restaurant_ID int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	Name varchar(128) NOT NULL,
+	Registration_number varchar(11) NOT NULL,
+	Location varchar(256) NOT NULL,
+	Administrator_ID integer REFERENCES Users(User_ID)
+);
+
+create table Workers (
+	Worker_ID int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	Name varchar(128) NOT NULL,
+	Surname varchar(128) NOT NULL,
+	Personal_code nchar(11) NOT NULL,
+	Occupation varchar(256) default 'Storage worker',
+	CONSTRAINT Restaurant_ID  foreign key (Restaurant_ID) references Restaurants(Restaurant_ID)
+);
+
+create table Working_time (
+	Working_time_ID int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	Shift_start Time NOT NULL,
+	Shift_end Time NOT NULL,
+	Day_of_week int NOT NULL,
+	CONSTRAINT Restaurant_ID  foreign key (Restaurant_ID) references Restaurants(Restaurant_ID)
+);
+
+create table Deliveries (
+	Delivery_ID int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	Price MONEY NOT NULL,
+	Delivery_time DateTime NOT NULL,
+	CONSTRAINT Delivery_company_ID foreign key (Delivery_company_ID) references Delivery_companies(Delivery_company_ID),
+	CONSTRAINT Administrator_ID foreign key (User_ID) references Users(User_ID),
+	CONSTRAINT Restaurant_ID  foreign key (Restaurant_ID) references Restaurants(Restaurant_ID)
+);
+
+create table Storages (
+	Storage_ID int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	Name varchar(128) NOT NULL,
+	Size numeric(8,3),
+	CONSTRAINT Restaurant_ID  foreign key (Restaurant_ID) references Restaurants(Restaurant_ID)
+);
+
+create table Shelves (
+	Shelf_ID int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	Name varchar(128) NOT NULL,
+	Storage_type varchar(16) NOT NULL,
+	Allocated_space numeric(8,1) NOT NULL,
+	CONSTRAINT Storage_ID foreign key (Storage_ID) references Storages(Storage_ID)
+);
+
+create table Menu_contents (
+	Menu_content_ID int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	Price MONEY NOT NULL,
+	Name varchar(128) NOT NULL,
+	Serving_date DateTime,
+	Number_of_calories numeric(7,2),
+	CONSTRAINT Restaurant_ID  foreign key (Restaurant_ID) references Restaurants(Restaurant_ID)
+);
+
+create table Products (
+	Product_ID int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	Amount_left numeric(8,2) NOT NULL,
+	Date_of_expiry DateTime NOT NULL,
+	Storage_type varchar(16) NOT NULL,
+	Name varchar(128) NOT NULL,
+	CONSTRAINT Shelf_ID foreign key (Shelf_ID) references Shelves(Shelf_ID),
+	CONSTRAINT Delivery_ID foreign key (Delivery_ID) references Deliveries(Delivery_ID)
+);
+
+create table Meals (
+	Meal_ID int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	Amount numeric(8,4) NOT NULL,
+	CONSTRAINT Restaurant_ID  foreign key (Restaurant_ID) references Restaurants(Restaurant_ID),
+	CONSTRAINT Menu_content_ID foreign key (Menu_content_ID) references Menu_contents(Menu_content_ID),
+	CONSTRAINT Product_ID foreign key (Product_ID) references Products(Product_ID)
+);
