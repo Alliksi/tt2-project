@@ -1,14 +1,15 @@
-DROP TABLE IF EXISTS Meals;
-DROP TABLE IF EXISTS Products;
-DROP TABLE IF EXISTS Menu_content;
-DROP TABLE IF EXISTS Shelves;
-DROP TABLE IF EXISTS Storages;
-DROP TABLE IF EXISTS Deliveries;
-DROP TABLE IF EXISTS Working_time;
-DROP TABLE IF EXISTS Workers;
-DROP TABLE IF EXISTS Restaurants;
-DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS Delivery_companies;
+DROP TABLE IF EXISTS Meals CASCADE;
+DROP TABLE IF EXISTS Products CASCADE;
+DROP TABLE IF EXISTS Menu_content CASCADE;
+DROP TABLE IF EXISTS Shelves CASCADE;
+DROP TABLE IF EXISTS Storages CASCADE; 
+DROP TABLE IF EXISTS Deliveries CASCADE;
+DROP TABLE IF EXISTS Working_time CASCADE;
+DROP TABLE IF EXISTS Workers CASCADE;
+DROP TABLE IF EXISTS Delivery_companies CASCADE;
+DROP TABLE IF EXISTS Restaurants CASCADE;
+DROP TABLE IF EXISTS Users CASCADE;
+
 create table Users (
 	User_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	Username varchar(128) NOT NULL,
@@ -68,14 +69,14 @@ create table Storages (
 );
 
 create table Shelves (
-	Shelf_ID int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	Shelf_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	Name varchar(128) NOT NULL,
 	Storage_type varchar(16) NOT NULL,
 	Allocated_space numeric(8,1) NOT NULL,
 	Storage_ID integer references Storages(Storage_ID)
 );
 
-create table Menu_contents (
+create table Menu_content (
 	Menu_content_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	Price MONEY NOT NULL,
 	Name varchar(128) NOT NULL,
@@ -98,6 +99,6 @@ create table Meals (
 	Meal_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	Amount numeric(8,4) NOT NULL,
 	Restaurant_ID integer references Restaurants(Restaurant_ID),
-	Menu_content_ID integer references Menu_contents(Menu_content_ID),
+	Menu_content_ID integer references Menu_content(Menu_content_ID),
 	Product_ID integer references Products(Product_ID)
 );
