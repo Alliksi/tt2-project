@@ -10,22 +10,27 @@
     <div th:replace="fragments/includes"></div>
 </head>
 <body>
-    <img src="![](../../static/css/images/login_page_background.jpg)">
-    <h1>Login page</h1>
-    <div th:if="${invalid}">
-        Invalid username or password. Contact an administrator, if you need password restore options.
+<div id="login">
+    <div class="d-flex justify-content-center">
+        <div class="container bg-light login">
+            <h1>Login page</h1>
+            <div th:if="${invalid}">
+                Invalid username or password. Contact an administrator, if you need password restore options.
+            </div>
+            <form th:action="@{/login}" method="post">
+                <div>
+                    <label for="username">Username</label>:
+                    <input type="text" id="username" name="username" autofocus="autofocus" required/> <br/>
+                </div>
+                <div>
+                    <label for="password">Password</label>:
+                    <input type="password" id="password" name="password" required/> <br/>
+                </div>
+                <input type="submit" value="Sign in"/>
+            </form>
+        </div>
     </div>
-    <form th:action="@{/login}" method="post">
-        <div>
-            <label for="username">Username</label>:
-            <input type="text" id="username" name="username" autofocus="autofocus" required/> <br/>
-        </div>
-        <div>
-            <label for="password">Password</label>:
-            <input type="password" id="password" name="password" required/> <br/>
-        </div>
-        <input type="submit" value="Sign in"/>
-    </form>
+</div>
 </body>
 
 </html>
