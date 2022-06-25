@@ -1,4 +1,6 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
@@ -13,7 +15,7 @@
 <div id="login">
     <div class="d-flex justify-content-center">
         <div class="container bg-light login">
-            <h1>Login page</h1>
+            <h1>Login</h1>
             <div th:if="${invalid}">
                 Invalid username or password!
             </div>
@@ -27,6 +29,7 @@
                     <input type="password" id="password" name="password" required/> <br/>
                 </div>
                 <input type="submit" value="Sign in"/>
+                <i>Don't have an account? <a href="../register-company">Register</a></i>
             </form>
             <p> In case you forgot your password/username, contact your company storage system administrator. </p>
         </div>

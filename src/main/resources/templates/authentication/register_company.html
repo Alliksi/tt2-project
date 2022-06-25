@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Login</title>
+    <div th:replace="fragments/includes"></div>
 </head>
 <body>
-
+<div id="login">
+    <div class="d-flex justify-content-center">
+        <div class="container bg-light login">
+            <h1>Register</h1>
+            <div th:if="${invalid}">
+                Invalid username or password!
+            </div>
+            <form th:action="@{/register_company}" method="post">
+                <div>
+                    <label for="username">Username</label>:
+                    <input type="text" id="username" name="username" autofocus="autofocus" required/> <br/>
+                </div>
+                <div>
+                    <label for="password">Password</label>:
+                    <input type="password" id="password" name="password" required/> <br/>
+                </div>
+                <input type="submit" value="Sign in"/>
+                <i>Already registered? <a href="../login">Login</a></i>
+            </form>
+            <p> In case you forgot your password/username, contact your company storage system administrator. </p>
+        </div>
+    </div>
+</div>
 </body>
+
 </html>
