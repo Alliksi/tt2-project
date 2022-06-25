@@ -1,42 +1,52 @@
 package com.storage.auth.controller;
 
+import com.storage.auth.dto.CompanyRegistrationDto;
 import com.storage.logger.basic.BasicLogger;
+import com.storage.logger.database.DatabaseLogger;
+import io.netty.channel.unix.Errors;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 public class AuthenticationController {
 
-    Logger logger = BasicLogger.getLogger();
+    DatabaseLogger dbLogger = new DatabaseLogger();
+    Logger basicLogger = BasicLogger.getLogger();
 
     @GetMapping(value={"/","/login"})
-    public String login() {
-        logger.info("Login view");
+    public String showLoginView() {
+        basicLogger.info("Login view");
         return "authentication/login";
     }
 
     @RequestMapping(value={"/login-error"})
-    public String loginError(Model model) {
-        logger.info("Login error view");
+    public String showLoginErrorView(Model model) {
+        basicLogger.info("Login error view");
         model.addAttribute("loginError", true);
-        return "authentication/login";
+        return "authentication/login"; // TODO - error does not show.
     }
 
-    @RequestMapping(value={"/register-restaurant"}, method= RequestMethod.GET)
-    public String registerRestaurant() {
-        logger.info("Triggered register restaurant mapping");
-        return "authentication/register_restaurant";
+    @RequestMapping(value={"/register-company"}, method= RequestMethod.GET)
+    public String showRegisterCompanyView(WebRequest request, Model model) {
+        basicLogger.info("Registering company view");
+        CompanyRegistrationDto registrationDto = new CompanyRegistrationDto();
+        model.addAttribute("registrationDto", registrationDto);
+        return "authentication/register_company";
     }
 
-    @RequestMapping(value={"/register-user"}, method= RequestMethod.GET)
-    public String registerUser() {
-        logger.info("Triggered register user mapping");
-        return "authentication/register_user";
-    }
+    @PostMapping(value={"/register-company"})
+    public ModelAndView registerNewCompany(@ModelAttribute("registrationDto") @Valid CompanyRegistrationDto registrationDto,
+                                           HttpServletRequest request, Errors errors) {
+        dbLogger.logToDatabase("User is registering a new company"); // TODO ADD user name, company name, etc.
 
+        return null; // TODO
+    }
 
 }

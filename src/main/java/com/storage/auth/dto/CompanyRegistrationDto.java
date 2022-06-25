@@ -1,10 +1,13 @@
 package com.storage.auth.dto;
 
+import com.storage.auth.annotations.PasswordMatches;
+import com.storage.auth.annotations.ValidEmail;
 import org.jetbrains.annotations.NotNull;
 
 import javax.validation.constraints.NotEmpty;
 
-public class RestaurantRegistrationDto {
+@PasswordMatches
+public class CompanyRegistrationDto {
     @NotNull
     @NotEmpty
     private String username;
@@ -16,6 +19,7 @@ public class RestaurantRegistrationDto {
 
     @NotNull
     @NotEmpty
+    @ValidEmail
     private String email;
 
     @NotNull
