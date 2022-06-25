@@ -7,17 +7,21 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>Login</title>
+    <div th:replace="fragments/includes"></div>
 </head>
 <body>
-<h1>Login page</h1>
-<p th:if="${loginError}" class="error">Wrong user or password</p>
-<form th:action="@{/login.html}" method="post">
-    <label for="username">Username</label>:
-    <input type="text" id="username" name="username" autofocus="autofocus" required/> <br/>
-    <label for="password">Password</label>:
-    <input type="password" id="password" name="password" required/> <br/>
-    <input type="submit" value="Log in"/>
-</form>
+<div id="login">
+    <h1>Login page</h1>
+    <p th:if="${loginError}" class="error">Wrong user or password</p>
+    <img src="![](../../static/css/images/login_page_background.jpg)">
+    <form th:action="@{/login.html}" method="post">
+        <label for="username">Username</label>:
+        <input type="text" id="username" name="username" autofocus="autofocus" required/> <br/>
+        <label for="password">Password</label>:
+        <input type="password" id="password" name="password" required/> <br/>
+        <input type="submit" value="Log in"/>
+    </form>
+</div>
 </body>
 
 </html>
