@@ -1,6 +1,6 @@
-package com.storage.auth.annotations;
+package com.storage.auth.annotation;
 
-import com.storage.auth.annotations.validators.EmailValidator;
+import com.storage.auth.annotation.validators.EmailValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

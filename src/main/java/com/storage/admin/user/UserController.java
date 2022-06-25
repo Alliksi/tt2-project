@@ -1,4 +1,4 @@
-package com.storage.user;
+package com.storage.admin.user;
 
 import com.storage.logger.basic.BasicLogger;
 import com.storage.logger.database.DatabaseLogger;
@@ -11,7 +11,7 @@ public class UserController {
     DatabaseLogger dbLogger = new DatabaseLogger();
     Logger basicLogger = BasicLogger.getLogger();
 
-    @RequestMapping(value={"/admins/users/register-user"}, method= RequestMethod.GET)
+    @RequestMapping(value={"/admin/user/register-user"}, method= RequestMethod.GET)
     public String showRegisterUserView() {
         basicLogger.info("Triggered register user mapping");
         return "admins/users/register_user"; // TODO

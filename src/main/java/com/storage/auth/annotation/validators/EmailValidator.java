@@ -1,19 +1,11 @@
-package com.storage.auth.annotations.validators;
+package com.storage.auth.annotation.validators;
 
-import com.storage.auth.annotations.ValidEmail;
+import com.storage.auth.annotation.ValidEmail;
 
-import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import javax.validation.Payload;
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static java.lang.annotation.ElementType.*;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 
 public class EmailValidator implements ConstraintValidator<ValidEmail, String> {

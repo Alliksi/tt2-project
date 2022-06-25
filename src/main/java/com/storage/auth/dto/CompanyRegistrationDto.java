@@ -1,7 +1,7 @@
 package com.storage.auth.dto;
 
-import com.storage.auth.annotations.PasswordMatches;
-import com.storage.auth.annotations.ValidEmail;
+import com.storage.auth.annotation.PasswordMatches;
+import com.storage.auth.annotation.ValidEmail;
 import org.jetbrains.annotations.NotNull;
 
 import javax.validation.constraints.NotEmpty;

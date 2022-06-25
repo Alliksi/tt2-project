@@ -22,18 +22,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/register-company", "/error", "/js/**", "/css/**").permitAll()
-                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .anyRequest().authenticated()
-                .and()
+                    .antMatchers("/","login","login-error","/register-company", "/error", "/js/**", "/css/**").permitAll()
+                    .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                    .anyRequest().authenticated()
+                    .and()
                 .formLogin()
-                .loginPage("/login")
-                .failureUrl("/login-error")
-                .defaultSuccessUrl("/index")
-                .permitAll()
-                .and()
+                    .loginPage("/login")
+                    .failureUrl("/login-error")
+                    .defaultSuccessUrl("/index", true)
+                    .permitAll()
+                    .and()
                 .logout()
-                .permitAll();
+                    .permitAll()
+                    .and()
+                .headers()
+                    .frameOptions()
+                    .disable()
+                    .and()
+                .csrf()
+                    .disable();
     }
 
     @Autowired

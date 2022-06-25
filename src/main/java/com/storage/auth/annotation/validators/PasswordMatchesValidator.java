@@ -1,6 +1,6 @@
-package com.storage.auth.annotations.validators;
+package com.storage.auth.annotation.validators;
 
-import com.storage.auth.annotations.PasswordMatches;
+import com.storage.auth.annotation.PasswordMatches;
 import com.storage.auth.dto.CompanyRegistrationDto;
 
 import javax.validation.ConstraintValidator;

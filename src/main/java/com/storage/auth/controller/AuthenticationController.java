@@ -26,11 +26,11 @@ public class AuthenticationController {
         return "authentication/login";
     }
 
-    @RequestMapping(value={"/login-error"})
-    public String showLoginErrorView(Model model) {
+    @GetMapping(value={"/login-error"})
+    public String showInvalidLoginView(Model model) {
         basicLogger.info("Login error view");
-        model.addAttribute("loginError", true);
-        return "authentication/login"; // TODO - error does not show.
+        model.addAttribute("invalid", true);
+        return "authentication/login";
     }
 
     @RequestMapping(value={"/register-company"}, method= RequestMethod.GET)
