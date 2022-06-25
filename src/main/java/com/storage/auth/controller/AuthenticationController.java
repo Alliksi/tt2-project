@@ -20,7 +20,7 @@ public class AuthenticationController {
     DatabaseLogger dbLogger = new DatabaseLogger();
     Logger basicLogger = BasicLogger.getLogger();
 
-    @GetMapping(value={"/","/login"})
+    @GetMapping(value={"/login"})
     public String showLoginView() {
         basicLogger.info("Login view");
         return "authentication/login";

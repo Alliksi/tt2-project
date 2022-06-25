@@ -17,6 +17,7 @@ public class StartupTests {
     @Autowired
     private MockMvc mvc;
 
+
     @Test
     public void getSafelyRan() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))

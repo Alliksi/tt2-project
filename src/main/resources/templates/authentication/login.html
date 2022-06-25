@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>Login</title>
     <div th:replace="fragments/includes"></div>
@@ -15,7 +15,7 @@
         <div class="container bg-light login">
             <h1>Login page</h1>
             <div th:if="${invalid}">
-                Invalid username or password. Contact an administrator, if you need password restore options.
+                Invalid username or password!
             </div>
             <form th:action="@{/login}" method="post">
                 <div>
@@ -28,6 +28,7 @@
                 </div>
                 <input type="submit" value="Sign in"/>
             </form>
+            <p> In case you forgot your password/username, contact your company storage system administrator. </p>
         </div>
     </div>
 </div>
