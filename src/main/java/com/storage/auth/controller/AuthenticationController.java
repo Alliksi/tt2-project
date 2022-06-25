@@ -26,13 +26,14 @@ public class AuthenticationController {
 
     @GetMapping(value={"/login"})
     public String showLoginView() {
-        _databaseLoggerService.log("testing");
+        _databaseLoggerService.info("Logging on");
         return "authentication/login";
     }
 
     @GetMapping(value={"/login-error"})
     public String showInvalidLoginView(Model model) {
         model.addAttribute("invalid", true);
+        _databaseLoggerService.info("Incorrect login attempt");
         return "authentication/login";
     }
 
