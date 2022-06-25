@@ -8,8 +8,17 @@ DROP TABLE IF EXISTS Working_time CASCADE;
 DROP TABLE IF EXISTS Workers CASCADE;
 DROP TABLE IF EXISTS Delivery_companies CASCADE;
 DROP TABLE IF EXISTS Restaurants CASCADE;
+DROP TABLE IF EXISTS Logs CASCADE;
 DROP TABLE IF EXISTS Users CASCADE;
 DROP TABLE IF EXISTS Meals_products CASCADE;
+
+create table Logs (
+	Log_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	Created Date NOT NULL,
+	Message varchar(1028) NOT NULL,
+	Controller_name varchar(128),
+	Status varchar(16)
+);
 
 create table Users (
 	User_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
