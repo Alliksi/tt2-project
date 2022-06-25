@@ -12,26 +12,70 @@
     <div th:replace="fragments/includes"></div>
 </head>
 <body>
-<div id="login">
+<div id="register-company">
     <div class="d-flex justify-content-center">
         <div class="container bg-light login">
-            <h1>Register</h1>
-            <div th:if="${invalid}">
-                Invalid username or password!
-            </div>
-            <form th:action="@{/register_company}" method="post">
+            <form th:action="@{/register-company}" th:object="${company}" method="POST" enctype="utf8">
+                <h3>Information about the owner: </h3>
                 <div>
-                    <label for="username">Username</label>:
-                    <input type="text" id="username" name="username" autofocus="autofocus" required/> <br/>
+                    <label>First name:</label>
+                    <input th:field="*{personName}"/>
+                    <p th:each="error : ${#fields.errors('personName')}"
+                       th:text="${error}">Validation error</p>
                 </div>
                 <div>
-                    <label for="password">Password</label>:
-                    <input type="password" id="password" name="password" required/> <br/>
+                    <label>Surname:</label>
+                    <input th:field="*{personSurname}"/>
+                    <p th:each="error : ${#fields.errors('personSurname')}"
+                       th:text="${error}">Validation error</p>
                 </div>
-                <input type="submit" value="Sign in"/>
-                <i>Already registered? <a href="../login">Login</a></i>
+                <div>
+                    <label>Personal code (no -):</label>
+                    <input th:field="*{personalCode}"/>
+                    <p th:each="error : ${#fields.errors('personalCode')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div>
+                    <label>Username:</label>
+                    <input th:field="*{username}"/>
+                    <p th:each="error: ${#fields.errors('username')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div>
+                    <label>Email:</label>
+                    <input type="email" th:field="*{email}"/>
+                    <p th:each="error : ${#fields.errors('email')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div>
+                    <label>Password:</label>
+                    <input type="password" th:field="*{password}"/>
+                    <p th:each="error : ${#fields.errors('password')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div>
+                    <label>Password again:</label>
+                    <input type="password" th:field="*{matchingPassword}"/>
+                </div>
+
+                <h3>Information about the company: </h3>
+                <div>
+                    <label>Company name:</label>
+                    <input th:field="*{companyName}"/>
+                    <p th:each="error: ${#fields.errors('companyName')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div>
+                    <label>Registration number:</label>
+                    <input th:field="*{registrationNumber}"/>
+                    <p th:each="error : ${#fields.errors('registrationNumber')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+
+                <button type="submit">Register!</button>
             </form>
-            <p> In case you forgot your password/username, contact your company storage system administrator. </p>
+
+            <a th:href="@{/login.html}">Already have a company registered? Log in.</a>
         </div>
     </div>
 </div>

@@ -22,13 +22,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/","login","login-error","/register-company", "/error", "/js/**", "/css/**").permitAll()
+                    .antMatchers("/","/index","/login","/login-error","/register-company", "/error", "/js/**", "/css/**").permitAll()
                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
                     .loginPage("/login")
-                    .failureUrl("/login-error")
+                    .failureUrl("/login?wrong")
                     .defaultSuccessUrl("/index", true)
                     .permitAll()
                     .and()

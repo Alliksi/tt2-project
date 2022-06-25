@@ -16,7 +16,7 @@
     <div class="d-flex justify-content-center">
         <div class="container bg-light login">
             <h1>Login</h1>
-            <div th:if="${invalid}">
+            <div th:if="${param.wrong != null}">
                 Invalid username or password!
             </div>
             <form th:action="@{/login}" method="post">

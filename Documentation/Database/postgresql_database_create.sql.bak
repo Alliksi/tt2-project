@@ -17,7 +17,7 @@ create table Logs (
 	Created Date NOT NULL,
 	Message varchar(1028) NOT NULL,
 	Controller_name varchar(128),
-	Status varchar(16) NOT NULL
+	Status varchar(16)
 );
 
 create table Users (

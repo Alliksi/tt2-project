@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS Meals CASCADE;
 DROP TABLE IF EXISTS Products CASCADE;
 DROP TABLE IF EXISTS Menu_content CASCADE;
 DROP TABLE IF EXISTS Shelves CASCADE;
+DROP TABLE IF EXISTS Companies CASCADE;
 DROP TABLE IF EXISTS Storages CASCADE; 
 DROP TABLE IF EXISTS Deliveries CASCADE;
 DROP TABLE IF EXISTS Working_time CASCADE;
@@ -30,6 +31,13 @@ create table Users (
 	Name varchar(128) NOT NULL,
 	Surname varchar(128) NOT NULL,
 	Personal_code nchar(11) NOT NULL
+);
+
+create table Companies (
+	Company_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	Name varchar(128) NOT NULL,
+	Registration_number varchar(11) NOT NULL,
+	Owner_ID integer REFERENCES Users(User_ID)
 );
 
 create table Delivery_companies (

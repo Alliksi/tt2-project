@@ -1,7 +1,7 @@
-package com.storage.auth.dto;
+package com.storage.authentication.dto;
 
-import com.storage.auth.annotation.PasswordMatches;
-import com.storage.auth.annotation.ValidEmail;
+import com.storage.general.annotation.PasswordMatches;
+import com.storage.general.annotation.ValidEmail;
 import org.jetbrains.annotations.NotNull;
 
 import javax.validation.constraints.NotEmpty;
@@ -36,15 +36,12 @@ public class CompanyRegistrationDto {
 
     @NotNull
     @NotEmpty
-    private String restaurantName;
+    private String companyName;
 
     @NotNull
     @NotEmpty
     private String registrationNumber;
 
-    @NotNull
-    @NotEmpty
-    private String address;
 
     public String getUsername() {
         return username;
@@ -102,12 +99,10 @@ public class CompanyRegistrationDto {
         this.personalCode = personalCode;
     }
 
-    public String getRestaurantName() {
-        return restaurantName;
-    }
+    public String getCompanyName() { return companyName; }
 
-    public void setRestaurantName(String restaurantName) {
-        this.restaurantName = restaurantName;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getRegistrationNumber() {
@@ -118,11 +113,4 @@ public class CompanyRegistrationDto {
         this.registrationNumber = registrationNumber;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 }
