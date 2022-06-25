@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS Meals_products CASCADE;
 
 create table Logs (
 	Log_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-	Created Date NOT NULL,
+	Created timestamp NOT NULL,
 	Message varchar(1028) NOT NULL,
 	Controller_name varchar(128),
 	Status varchar(16)

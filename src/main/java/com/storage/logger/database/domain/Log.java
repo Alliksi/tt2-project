@@ -1,7 +1,7 @@
 package com.storage.logger.database.domain;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "logs")
@@ -12,7 +12,7 @@ public class Log {
     private Integer id;
 
     @Column(name = "created", nullable = false)
-    private LocalDate created;
+    private Timestamp created;
 
     @Column(name = "message", nullable = false, length = 1028)
     private String message;
@@ -47,11 +47,11 @@ public class Log {
         this.message = message;
     }
 
-    public LocalDate getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDate created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
