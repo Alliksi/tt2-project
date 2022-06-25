@@ -2,19 +2,19 @@ DROP TABLE IF EXISTS Meals CASCADE;
 DROP TABLE IF EXISTS Products CASCADE;
 DROP TABLE IF EXISTS Menu_content CASCADE;
 DROP TABLE IF EXISTS Shelves CASCADE;
+DROP TABLE IF EXISTS Companies CASCADE;
 DROP TABLE IF EXISTS Storages CASCADE; 
 DROP TABLE IF EXISTS Deliveries CASCADE;
 DROP TABLE IF EXISTS Working_time CASCADE;
-DROP TABLE IF EXISTS Workers CASCADE;
 DROP TABLE IF EXISTS Delivery_companies CASCADE;
 DROP TABLE IF EXISTS Restaurants CASCADE;
 DROP TABLE IF EXISTS Logs CASCADE;
-DROP TABLE IF EXISTS Users CASCADE;
+DROP TABLE IF EXISTS Users CASCADE;	
 DROP TABLE IF EXISTS Meals_products CASCADE;
 
 create table Logs (
 	Log_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-	Created Date NOT NULL,
+	Created timestamp NOT NULL,
 	Message varchar(1028) NOT NULL,
 	Controller_name varchar(128),
 	Status varchar(16)
@@ -25,11 +25,18 @@ create table Users (
 	Username varchar(128) NOT NULL,
 	Password varchar(128) NOT NULL,
 	Email varchar(128) NOT NULL,
-	Role varchar(64) NOT NULL,
 	Enabled boolean DEFAULT NULL,
 	Name varchar(128) NOT NULL,
+	Roles varchar(256) NOT NULL,
 	Surname varchar(128) NOT NULL,
 	Personal_code nchar(11) NOT NULL
+);
+
+create table Companies (
+	Company_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	Name varchar(128) NOT NULL,
+	Registration_number varchar(11) NOT NULL,
+	Owner_ID integer REFERENCES Users(User_ID)
 );
 
 create table Delivery_companies (
@@ -46,14 +53,6 @@ create table Restaurants (
 	Administrator_ID integer REFERENCES Users(User_ID)
 );
 
-create table Workers (
-	Worker_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-	Name varchar(128) NOT NULL,
-	Surname varchar(128) NOT NULL,
-	Personal_code nchar(11) NOT NULL,
-	Occupation varchar(256) default 'Storage worker',
-	Restaurant_ID integer references Restaurants(Restaurant_ID)
-);
 
 create table Working_time (
 	Working_time_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

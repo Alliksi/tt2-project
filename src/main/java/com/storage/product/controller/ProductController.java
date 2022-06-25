@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("products")
+@RequestMapping("admin")
 public class ProductController {
     private final ProductService productService;
 
@@ -19,16 +19,11 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping
-    public String index() {
-        return "redirect:/products/list";
-    }
-
-    @GetMapping("/list")
+    @GetMapping("/products/list")
     public String listAll(Model model) {
         List<Product> productList = productService.getAll();
         model.addAttribute("products", productList);
-        return "products/list";
+        return "/products/list";
     }
 //    @GetMapping("/add")
 //    public String listAll() {

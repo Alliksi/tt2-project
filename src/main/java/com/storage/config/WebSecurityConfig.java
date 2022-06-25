@@ -2,12 +2,16 @@ package com.storage.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -18,13 +22,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     protected DataSource dataSource;
 
+    @Autowired
+    UserDetailsService userDetailsService;
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
                     .antMatchers("/","/index","/login","/login-error","/register-company", "/error", "/js/**", "/css/**").permitAll()
                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                    .anyRequest().authenticated()
+                    .and().authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                    .and().authorizeRequests().antMatchers("/worker/**").access("hasRole('ROLE_WORKER')")
+                    .and().authorizeRequests().antMatchers("/viewer/**").access("hasRole('ROLE_VIEWER')")
                     .and()
                 .formLogin()
                     .loginPage("/login")
@@ -34,6 +44,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .logout()
                     .permitAll()
+                    .logoutSuccessUrl("/")
+                    .logoutUrl("/logout").invalidateHttpSession(true)
                     .and()
                 .headers()
                     .frameOptions()
@@ -43,13 +55,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .disable();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
-                .dataSource(dataSource)
-                .usersByUsernameQuery("select username, password, enabled from users where username=?")
-                .authoritiesByUsernameQuery("select username, role from users where username=?");
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
     }
 
-        // TODO create tests: https://betterprogramming.pub/spring-security-basic-login-form-7c8f6e6e9f56
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder(6);
+    }
+
+    // TODO create tests: https://betterprogramming.pub/spring-security-basic-login-form-7c8f6e6e9f56
 }

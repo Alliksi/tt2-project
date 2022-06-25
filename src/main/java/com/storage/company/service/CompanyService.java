@@ -5,7 +5,6 @@ import com.storage.company.domain.Company;
 import com.storage.company.repository.CompanyRepository;
 import com.storage.general.exception.CompanyAlreadyExistsException;
 import com.storage.user.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

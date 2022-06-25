@@ -6,14 +6,12 @@ import com.storage.company.service.ICompanyService;
 import com.storage.logger.database.service.IDatabaseLoggerService;
 import com.storage.user.domain.User;
 import com.storage.user.service.IUserService;
-import io.netty.channel.unix.Errors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 
@@ -52,9 +50,21 @@ public class AuthenticationController {
     }
 
     @PostMapping(value={"/register-company"})
-    public ModelAndView registerNewCompany(@ModelAttribute("company") @Valid CompanyRegistrationDto registrationDto,
-                                           HttpServletRequest request, Errors errors, Model model) {
+    public String registerNewCompany(@ModelAttribute("company") @Valid CompanyRegistrationDto registrationDto, BindingResult bindingResult, Model model) {
+        if(bindingResult.hasErrors()){
+            return "authentication/register_company";
+        }
         try {
+            if(_userService.checkIfUserExistsByPersonalCode(registrationDto.getPersonalCode())){
+                bindingResult.rejectValue("error.personalCode", "Personal code taken!");
+                return "authentication/register_company";
+            }
+
+            if(_companyService.checkIfCompanyExistsByRegistrationNumber(registrationDto.getRegistrationNumber())){
+                bindingResult.rejectValue("error.registrationNumber", "Registration number taken!");
+                return "authentication/register_company";
+            }
+
             User registeredUser = _userService.registerNewUser(registrationDto, "ROLE_ADMIN");
             Company registeredCompany = _companyService.registerNewCompany(registrationDto, registeredUser);
             _databaseLoggerService.log("User with ID: " + registeredUser.getId() + " registered a company with ID: " + registeredCompany.getId());
@@ -62,10 +72,10 @@ public class AuthenticationController {
         catch(Exception ex){
             System.err.println(ex);
             model.addAttribute("info", ex.toString());
-            return new ModelAndView("authentication/register_company");
+            return "authentication/register_company";
         }
         model.addAttribute("success", "User created. Please log in.");
-        return new ModelAndView("authentication/login");
+        return "authentication/login";
     }
 
 }

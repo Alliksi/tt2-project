@@ -19,20 +19,32 @@ public class User {
     @Column(name = "email", nullable = false, length = 128)
     private String email;
 
-    @Column(name = "role", nullable = false, length = 64)
-    private String role;
-
     @Column(name = "enabled")
     private Boolean enabled;
 
     @Column(name = "name", nullable = false, length = 128)
     private String name;
 
+    @Column(name = "roles", nullable = false, length = 256)
+    private String roles;
+
     @Column(name = "surname", nullable = false, length = 128)
     private String surname;
 
     @Column(name = "personal_code", nullable = false, length = 11)
     private String personalCode;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
 
     public String getPersonalCode() {
         return personalCode;
@@ -50,6 +62,14 @@ public class User {
         this.surname = surname;
     }
 
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
     public String getName() {
         return name;
     }
@@ -64,14 +84,6 @@ public class User {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public String getEmail() {

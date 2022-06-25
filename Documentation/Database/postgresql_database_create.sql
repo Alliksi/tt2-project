@@ -1,3 +1,4 @@
+ALTER TABLE Users DROP CONSTRAINT  IF EXISTS FK_Restaurant_ID; 
 DROP TABLE IF EXISTS Meals CASCADE;
 DROP TABLE IF EXISTS Products CASCADE;
 DROP TABLE IF EXISTS Menu_content CASCADE;
@@ -6,11 +7,10 @@ DROP TABLE IF EXISTS Companies CASCADE;
 DROP TABLE IF EXISTS Storages CASCADE; 
 DROP TABLE IF EXISTS Deliveries CASCADE;
 DROP TABLE IF EXISTS Working_time CASCADE;
-DROP TABLE IF EXISTS Workers CASCADE;
 DROP TABLE IF EXISTS Delivery_companies CASCADE;
 DROP TABLE IF EXISTS Restaurants CASCADE;
 DROP TABLE IF EXISTS Logs CASCADE;
-DROP TABLE IF EXISTS Users CASCADE;
+DROP TABLE IF EXISTS Users CASCADE;	
 DROP TABLE IF EXISTS Meals_products CASCADE;
 
 create table Logs (
@@ -26,11 +26,12 @@ create table Users (
 	Username varchar(128) NOT NULL,
 	Password varchar(128) NOT NULL,
 	Email varchar(128) NOT NULL,
-	Role varchar(64) NOT NULL,
 	Enabled boolean DEFAULT NULL,
 	Name varchar(128) NOT NULL,
+	Roles varchar(256) NOT NULL,
 	Surname varchar(128) NOT NULL,
-	Personal_code nchar(11) NOT NULL
+	Personal_code nchar(11) NOT NULL,
+	Restaurant_ID integer
 );
 
 create table Companies (
@@ -51,16 +52,7 @@ create table Restaurants (
 	Name varchar(128) NOT NULL,
 	Registration_number varchar(11) NOT NULL,
 	Address varchar(256) NOT NULL,
-	Administrator_ID integer REFERENCES Users(User_ID)
-);
-
-create table Workers (
-	Worker_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-	Name varchar(128) NOT NULL,
-	Surname varchar(128) NOT NULL,
-	Personal_code nchar(11) NOT NULL,
-	Occupation varchar(256) default 'Storage worker',
-	Restaurant_ID integer references Restaurants(Restaurant_ID)
+	Company_ID integer REFERENCES Companies(Company_ID)
 );
 
 create table Working_time (
@@ -76,7 +68,7 @@ create table Deliveries (
 	Price MONEY NOT NULL,
 	Delivery_time Date NOT NULL,
 	Delivery_company_ID integer references Delivery_companies(Delivery_company_ID),
-	Administrator_ID integer references Users(User_ID),
+	Administrator_ID integer REFERENCES Users(User_ID),
 	Restaurant_ID integer references Restaurants(Restaurant_ID)
 );
 
@@ -126,4 +118,10 @@ create table Meals_products (
 	Meal_ID integer references Meals(Meal_ID) ON UPDATE CASCADE,
 	Amount numeric NOT NULL,
 	CONSTRAINT Meal_product_ID PRIMARY KEY (Product_ID, Meal_ID)
-)
+);
+
+ALTER TABLE Users 
+ADD CONSTRAINT FK_Restaurant_ID 
+FOREIGN KEY (Restaurant_ID) 
+REFERENCES Restaurants(Restaurant_ID)
+ON DELETE CASCADE;
