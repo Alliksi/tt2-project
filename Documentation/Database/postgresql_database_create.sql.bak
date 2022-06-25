@@ -33,7 +33,7 @@ create table Restaurants (
 	Restaurant_ID int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	Name varchar(128) NOT NULL,
 	Registration_number varchar(11) NOT NULL,
-	Address varchar(256) NOT NULL,
+	Location varchar(256) NOT NULL,
 	Administrator_ID integer REFERENCES Users(User_ID)
 );
 

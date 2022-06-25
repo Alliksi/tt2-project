@@ -1,6 +1,6 @@
-package com.kitchen.warehouse.auth.controller;
+package com.storage.auth.controller;
 
-import com.kitchen.warehouse.logger.basic.BasicLogger;
+import com.storage.logger.basic.BasicLogger;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,12 +15,13 @@ public class AuthenticationController {
 
     @GetMapping(value={"/","/login"})
     public String login() {
-        logger.info("Showing Login view");
+        logger.info("Login view");
         return "authentication/login";
     }
 
     @RequestMapping(value={"/login-error"})
     public String loginError(Model model) {
+        logger.info("Login error view");
         model.addAttribute("loginError", true);
         return "authentication/login";
     }

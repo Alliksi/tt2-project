@@ -15,7 +15,7 @@
 
     <Loggers>
 
-        <Logger name="com.kitchen.warehouse.logger.basic.BasicLogger" additivity="false">
+        <Logger name="com.storage.logger.basic.BasicLogger" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
 

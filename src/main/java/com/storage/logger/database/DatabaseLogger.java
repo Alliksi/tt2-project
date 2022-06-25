@@ -1,4 +1,4 @@
-package com.kitchen.warehouse.logger.database;
+package com.storage.logger.database;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

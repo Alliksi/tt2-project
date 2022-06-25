@@ -1,6 +1,6 @@
-package com.kitchen.warehouse.general.error.controller;
+package com.storage.general.error.controller;
 
-import com.kitchen.warehouse.logger.basic.BasicLogger;
+import com.storage.logger.basic.BasicLogger;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
