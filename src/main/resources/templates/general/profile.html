@@ -37,8 +37,11 @@
                 <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
             </div>
             <div class="mb-3">
-                <label class="control-label" for="newPassword">Password: (leave blank, if you do not want to update)</label>
-                <input id="newPassword" class="form-control"  type="password"  th:object="${newPassword}" th:field="*{password}">
+            <label class="control-label" for="newPassword">Password: (leave blank, if you do not want to update)</label>
+            <input id="newPassword" class="form-control"  type="password"  th:object="${newPassword}" th:field="*{password}">
+            <div class="mb-3">
+                <label class="control-label" for="passwordMatches">Enter password again:</label>
+                <input id="passwordMatches" class="form-control"  type="password"  th:object="${newPassword}" th:field="*{confirmPassword}">
             </div>
             <div class="mb-3">
                 <label class="control-label" for="email">Email:</label>
