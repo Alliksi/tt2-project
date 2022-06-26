@@ -15,22 +15,14 @@
 <div class="container">
     <div class="container-section">
         <h2>Restaurants</h2>
-<!--        <form class="search-form" th:action="@{/lib-dashboard/authors/page/1}" method="GET">-->
-<!--            <div class="input-group">-->
-<!--                <input class="form-control search-form-text" type="text" name="phrase"-->
-<!--                       placeholder="Search author by name.." th:value="${phrase}">-->
-<!--                <div class="input-group-append">-->
-<!--                    <input class="btn btn-secondary" type="submit" value="Search">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </form>-->
+        <a th:href="@{/owners/restaurants/add}">Add a new restaurant</a>
         <table class="table table-hover" th:unless="${restaurants.size() == 0}">
             <thead class="thead-dark">
             <tr>
                 <th scope="col"></th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Actions</th>
+                <th scope="col">Restaurant name</th>
+                <th scope="col">Registration number</th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -38,31 +30,12 @@
                 <td></td>
                 <td th:text="${restaurant.name}"></td>
                 <td th:text="${restaurant.registrationNumber}"></td>
-<!--                <td>-->
-<!--                    <a class="btn btn-primary" th:href="@{/admin/restaurants/{authorId}(authorId=${author.id})}"-->
-<!--                       th:text="Edit"></a>-->
-<!--                </td>-->
+                <td>
+                    <a class="btn btn-primary" th:href="@{/owners/restaurants/edit/{restaurantId}(restaurantId = ${restaurant.id})}">Edit</a>
+                </td>
             </tr>
             </tbody>
         </table>
-<!--        <div class="d-flex" th:unless="${authors.size() == 0}">-->
-<!--            <ul class="pagination pagination-sm mx-auto page-numbers-block">-->
-<!--                <a th:if="${currentPage > 1}"-->
-<!--                   th:href="@{/lib-dashboard/authors/page/{pageNumber}(pageNumber = ${currentPage-1}, phrase = ${phrase})}"-->
-<!--                   class="page-item page-link">-->
-<!--                    <span aria-hidden="true">&laquo;</span>-->
-<!--                    <span class="sr-only">Previous</span>-->
-<!--                </a>-->
-<!--                <li class="page-item disabled"><a class="page-link" href="#" th:text="${currentPage}"></a></li>-->
-<!--                <a th:if="${currentPage != totalPages}"-->
-<!--                   th:href="@{/lib-dashboard/authors/page/{pageNumber}(pageNumber = ${currentPage + 1}, phrase = ${phrase})}"-->
-<!--                   class="page-link">-->
-<!--                    <span aria-hidden="true">&raquo;</span>-->
-<!--                    <span class="sr-only">Next</span>-->
-<!--                </a>-->
-<!--            </ul>-->
-<!--        </div>-->
-
         <div th:if="${restaurants.size() == 0}"><h3 class="container-title">There are no restaurants here!</h3></div>
         <div th:href="@{/admin/restaurants/create}"></div>
     </div>
