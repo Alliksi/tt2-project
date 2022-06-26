@@ -6,7 +6,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>Login</title>
     <div th:replace="fragments/includes"></div>
@@ -15,27 +15,30 @@
 <div id="login" class="auth">
     <div class="d-flex justify-content-center">
         <div class="container bg-light login">
-            <h1><b>ProductMe</b></h1> <hr>
+            <span th:replace="fragments/lang"></span>
+            <h1><b>ProductMe</b></h1>
+            <hr>
             <div th:if="${param.wrong != null}">
                 Invalid username or password!
             </div>
-            <button type="button" th:text="en" onclick="window.location.href='?lang=en'"></button>
-            <button type="button" th:text="lv" onclick="window.location.href='?lang=lv'"></button>
             <form th:action="@{/login}" method="post">
                 <div>
                     <div class="mb-3">
                         <label for="username">Username</label>
-                        <input class="form-control" type="text" id="username" name="username" th:placeholder="#{login.label.username}" autofocus="autofocus" required/>
+                        <input class="form-control" type="text" id="username" name="username"
+                               th:placeholder="#{login.label.username}" autofocus="autofocus" required/>
                     </div>
                     <div class="mb-3">
                         <label for="password">Password</label>
-                        <input class="form-control" type="password" id="password" name="password" th:placeholder="#{login.label.password}" required/>
+                        <input class="form-control" type="password" id="password" name="password"
+                               th:placeholder="#{login.label.password}" required/>
                     </div>
                     <button class="btn btn-secondary" type="submit" th:text="#{signin}">Sign in</button>
-                </div >
+                </div>
             </form>
-            <i><span th:text="#{login.label.noaccount}"></span> <a href="../register-company" th:text="#{register}">Register</a></i>
-            <p th:if="${param.wrong != null}"><i>In case you forgot your password/username, contact your company storage system administrator.</i></p>
+            <i><span th:text="#{login.label.noaccount}"></span>? <a href="../register-company" th:text="#{register}">Register</a></i>
+            <p th:if="${param.wrong != null}"><i>In case you forgot your password/username, contact your company storage
+                system administrator.</i></p>
         </div>
     </div>
     <div th:replace="fragments/footer"></div>

@@ -6,7 +6,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <title>Register Company</title>
     <div th:replace="fragments/includes"></div>
@@ -15,66 +15,78 @@
 <div id="register-company" class="auth">
     <div class="d-flex justify-content-center">
         <div class="container bg-light login">
+            <span th:replace="fragments/lang"></span>
             <form th:action="@{/register-company}" th:object="${company}" method="POST" enctype="utf8">
-                    <h3>Information about the owner</h3><hr>
-                    <div>
-                        <div class="mb-3">
-                            <label for="personName">First name:</label>
-                            <input class="form-control" id="personName" placeholder="First name" th:field="*{personName}" required/>
-                            <p th:each="error : ${#fields.errors('personName')}"
-                               th:text="${error}">Validation error</p>
-                        </div>
-                        <div class="mb-3">
-                            <label for="personSurname">Surname:</label>
-                            <input class="form-control" id="personSurname" placeholder="Surname" th:field="*{personSurname}" required/>
-                            <p th:each="error : ${#fields.errors('personSurname')}"
-                               th:text="${error}">Validation error</p>
-                        </div>
-                        <div class="mb-3">
-                            <label for="personCode">Personal code:</label>
-                            <input class="form-control" id="personCode" placeholder="Personal code" th:field="*{personalCode}" required/>
-                            <p th:each="error : ${#fields.errors('personalCode')}"
-                               th:text="${error}">Validation error</p>
-                        </div>
-                        <div class="mb-3">
-                            <label for="username">Username:</label>
-                            <input class="form-control" id="username" placeholder="Username" th:field="*{username}" required/>
-                            <p th:each="error: ${#fields.errors('username')}"
-                               th:text="${error}">Validation error</p>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email">Email:</label>
-                            <input class="form-control" id="email" placeholder="Email" type="email" th:field="*{email}" required/>
-                            <p th:each="error : ${#fields.errors('email')}"
-                               th:text="${error}">Validation error</p>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password">Password:</label>
-                            <input class="form-control" id="password" placeholder="Password" type="password" th:field="*{password}" required/>
-                            <p th:each="error : ${#fields.errors('password')}"
-                               th:text="${error}">Validation error</p>
-                        </div>
-                        <div class="mb-3">
-                            <label for="passwordAgain">Password again:</label>
-                            <input class="form-control" id="passwordAgain" placeholder="Repeat password" type="password" th:field="*{matchingPassword}" required/>
-                        </div>
+                <h3>Information about the owner</h3>
+                <hr>
+                <div>
+                    <div class="mb-3">
+                        <label for="personName">First name:</label>
+                        <input class="form-control" id="personName" th:placeholder="#{register.label.firstname}"
+                               th:field="*{personName}" required/>
+                        <p th:each="error : ${#fields.errors('personName')}"
+                           th:text="${error}">Validation error</p>
                     </div>
-                    <h3>Information about the company</h3><hr>
-                        <div class="mb-3">
-                            <label for="companyName">Company name:</label>
-                            <input class="form-control" id="companyName" placeholder="Company name" th:field="*{companyName}" required/>
-                            <p th:each="error: ${#fields.errors('companyName')}"
-                               th:text="${error}">Validation error</p>
-                        </div>
-                        <div class="mb-3">
-                            <label for="regNumber">Registration number:</label>
-                            <input class="form-control" id="regNumber" placeholder="Registration number" th:field="*{registrationNumber}" required/>
-                            <p th:each="error : ${#fields.errors('registrationNumber')}"
-                               th:text="${error}">Validation error</p>
-                        </div>
-                    <button class="btn btn-secondary" type="submit">Register!</button>
+                    <div class="mb-3">
+                        <label for="personSurname">Surname:</label>
+                        <input class="form-control" id="personSurname" th:placeholder="#{register.label.surname}"
+                               th:field="*{personSurname}" required/>
+                        <p th:each="error : ${#fields.errors('personSurname')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="personCode">Personal code:</label>
+                        <input class="form-control" id="personCode" th:placeholder="#{register.label.personalCode}"
+                               th:field="*{personalCode}" required/>
+                        <p th:each="error : ${#fields.errors('personalCode')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="username">Username:</label>
+                        <input class="form-control" id="username" th:placeholder="#{register.label.username}"
+                               th:field="*{username}" required/>
+                        <p th:each="error: ${#fields.errors('username')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email">Email:</label>
+                        <input class="form-control" id="email" th:placeholder="#{register.label.email}" type="email"
+                               th:field="*{email}" required/>
+                        <p th:each="error : ${#fields.errors('email')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password">Password:</label>
+                        <input class="form-control" id="password" th:placeholder="#{register.label.password}"
+                               type="password" th:field="*{password}" required/>
+                        <p th:each="error : ${#fields.errors('password')}"
+                           th:text="${error}">Validation error</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="passwordAgain">Password again:</label>
+                        <input class="form-control" id="passwordAgain" th:placeholder="#{register.label.repeatPassword}"
+                               type="password" th:field="*{matchingPassword}" required/>
+                    </div>
+                </div>
+                <h3>Information about the company</h3>
+                <hr>
+                <div class="mb-3">
+                    <label for="companyName">Company name:</label>
+                    <input class="form-control" id="companyName" th:placeholder="#{register.label.companyName}"
+                           th:field="*{companyName}" required/>
+                    <p th:each="error: ${#fields.errors('companyName')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div class="mb-3">
+                    <label for="regNumber">Registration number:</label>
+                    <input class="form-control" id="regNumber" th:placeholder="#{register.label.regNumber}"
+                           th:field="*{registrationNumber}" required/>
+                    <p th:each="error : ${#fields.errors('registrationNumber')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <button class="btn btn-secondary" type="submit" th:text="#{register}">Register!</button>
             </form>
-            <i>Already registered? <a href="../login">Log in</a></i>
+            <i><span th:text="#{alreadyRegistered}"></span>? <a href="../login" th:text="#{signin}"></a></i>
         </div>
     </div>
     <div th:replace="fragments/footer"></div>

@@ -57,3 +57,10 @@ body {
 #navbar {
     opacity: 90%;
 }
+.lang {
+    position: absolute;
+    top: 53px;
+}
+.lang a {
+    cursor: pointer;
+}
