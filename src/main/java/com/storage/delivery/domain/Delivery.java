@@ -12,7 +12,7 @@ public class Delivery {
     private int deliveryId;
     @Basic
     @Column(name = "price")
-    private Object price;
+    private Integer price;
     @Basic
     @Column(name = "delivery_time")
     private Date deliveryTime;
@@ -34,11 +34,11 @@ public class Delivery {
         this.deliveryId = deliveryId;
     }
 
-    public Object getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(Object price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 

@@ -17,7 +17,7 @@ public class ShelfController {
         this._productService = productService;
     }
 
-    @GetMapping("/products/list")
+    //@GetMapping("/products/list")
     public String listAll(Model model) {
         List<Product> productList = _productService.getAll();
         model.addAttribute("products", productList);
