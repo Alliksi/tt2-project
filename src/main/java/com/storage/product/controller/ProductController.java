@@ -1,6 +1,7 @@
 package com.storage.product.controller;
 
 import com.storage.product.domain.Product;
+import com.storage.product.service.IProductService;
 import com.storage.product.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +12,9 @@ import java.util.List;
 @Controller
 public class ProductController {
 
-    private final ProductService _productService;
+    private final IProductService _productService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(IProductService productService) {
         this._productService = productService;
     }
 

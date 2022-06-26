@@ -34,5 +34,7 @@ public class CompanyService implements ICompanyService {
     public Boolean checkIfCompanyExistsByRegistrationNumber(String registrationNumber) {
         return _companyRepository.findByRegistrationNumber(registrationNumber).isPresent();
     }
-
+    public Company getCompanyByUser(User user) {
+        return _companyRepository.findByOwner(user).orElse(null);
+    }
 }

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Login</title>
+    <div th:replace="fragments/includes"></div>
+</head>
+<body>
+<div th:replace="fragments/navbar"></div>
+<div>
+    <form th:action="@{/owners/restaurants/add}" th:object="${restaurant}" method="POST" enctype="utf8">
+        <h3>Information about the restaurant: </h3>
+        <div>
+            <label>Restaurant name:</label>
+            <input th:field="*{name}" required/>
+            <p th:each="error : ${#fields.errors('name')}"
+               th:text="${error}">Validation error</p>
+        </div>
+        <div>
+            <label>Restaurant registration number:</label>
+            <input th:field="*{registrationNumber}" required/>
+            <p th:each="error : ${#fields.errors('registrationNumber')}"
+               th:text="${error}">Validation error</p>
+        </div>
+        <div>
+            <label>Address:</label>
+            <input th:field="*{address}" required/>
+            <p th:each="error : ${#fields.errors('address')}"
+               th:text="${error}">Validation error</p>
+        </div>
+        <button type="submit">Add restaurant</button>
+    </form>
+</div>
+<div th:replace="fragments/footer"></div>
+</body>
+
+</html>

@@ -1,10 +1,13 @@
-<div sec:authorize="hasRole('ROLE_ADMIN')">
+<div sec:authorize="isAuthenticated()">
+    <div><a href="/logout">Logout</a></div>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
     <span th:text="'Hello, ' + ${#authentication.getPrincipal().getUsername()}"></span>
     <div><a href="/admin">Admin dashboard</a></div>
 </div>
 <div sec:authorize="hasRole('ROLE_OWNER')">
     <span th:text="'Hello, ' + ${#authentication.getPrincipal().getUsername()}"></span>
-    <div><a href="/owner">Owner dashboard</a></div>
     <div><a href="/admin">Admin dashboard</a></div>
-    <div><a href="/owner/restaurants">Restaurant dashboard</a></div>
+    <div><a href="/owners">Owner dashboard</a></div>
+    <div><a href="/owners/restaurants">Restaurant dashboard</a></div>
+</div>
 </div>

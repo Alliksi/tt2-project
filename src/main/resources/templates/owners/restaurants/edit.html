@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Login</title>
+    <div th:replace="fragments/includes"></div>
+</head>
+<body>
+<div th:replace="fragments/navbar"></div>
+<div>
+    <div th:if="${restaurant == null}">
+        <h2 th:text="'Failed to find the given restaurant'"></h2>
+    </div>
+    <div th:unless="${restaurant == null}">
+        <form th:action="@{/owners/restaurants/update/{restaurantId}(restaurantId = ${restaurant.id})}" method="post" th:object="${restaurant}">
+            <div class="form-group">
+                <label class="control-label" for="name">Restaurant name</label>
+                <input id="name" class="form-control" th:field="*{name}">
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="registrationNumber">Registration number</label>
+                <input id="registrationNumber" class="form-control" th:field="*{registrationNumber}">
+                <p th:if="${#fields.hasErrors('registrationNumber')}" th:errors="*{registrationNumber}"></p>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="address">Address</label>
+                <input id="address" class="form-control" th:field="*{address}">
+                <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">Save restaurant information</button>
+                <a class="btn btn-danger float-right"
+                   th:href="@{/owners/restaurants/delete/{restaurantId}(restaurantId = ${restaurant.id})}">Delete restaurant</a>
+            </div>
+        </form>
+    </div>
+</div>
+<div th:replace="fragments/footer"></div>
+</body>
+
+</html>

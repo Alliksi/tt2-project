@@ -8,4 +8,5 @@ import com.storage.user.domain.User;
 public interface ICompanyService {
     Company registerNewCompany(CompanyRegistrationDto companyRegistrationDto, User owner) throws CompanyAlreadyExistsException;
     Boolean checkIfCompanyExistsByRegistrationNumber(String registrationNumber);
+    Company getCompanyByUser(User user);
 }

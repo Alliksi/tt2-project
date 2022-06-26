@@ -5,8 +5,7 @@ import com.storage.authentication.dto.CompanyRegistrationDto;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class PasswordMatchesValidator
-        implements ConstraintValidator<PasswordMatches, Object> {
+public class PasswordMatchesValidator implements ConstraintValidator<PasswordMatches, Object> {
 
     @Override
     public void initialize(PasswordMatches constraintAnnotation) {
