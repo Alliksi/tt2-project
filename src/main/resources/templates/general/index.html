@@ -12,13 +12,16 @@
 </head>
 <body>
 <div th:replace="fragments/navbar"></div>
-<div>
-    <div sec:authorize="isAuthenticated()">
-
+    <div class="auth" sec:authorize="isAnonymous()">
+        <div class="d-flex justify-content-center">
+            <div class="container bg-light login">
+                <h1><b>ProductMe</b></h1> <hr>
+                <p> Are you a company owner? <a href="/register-company" >Create a new profile for yourself</a> and manage your restaurant. <br>
+                <p> Already have a profile? <a href="/login"> Sign in here </a></p>
+            </div>
+        </div>
     </div>
-    <div sec:authorize="isAnonymous()">
-        <p> Are you a company owner? <a href="/register-company" >Create a new profile for yourself</a> and manage your restaurant. <br>
-        <p> Already have a profile? <a href="/login"> Sign in here </a></p>
+    <div sec:authorize="isAuthenticated()">
     </div>
 </div>
 <div th:replace="fragments/footer"></div>
