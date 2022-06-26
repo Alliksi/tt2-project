@@ -50,6 +50,10 @@ public class UserService implements IUserService{
         return _userRepository.findByPersonalCode(personalCode).isPresent();
     }
 
+    public Boolean checkIfUserExistsByUsername(String username) {
+        return _userRepository.findByUsername(username).isPresent();
+    }
+
     public Boolean checkIfUserExistsByEmail(String email){
         return _userRepository.findByEmail(email).isPresent();
     }

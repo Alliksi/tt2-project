@@ -13,7 +13,10 @@
 <body>
 <div th:replace="fragments/navbar"></div>
 <div>
-    <div>
+    <div sec:authorize="isAuthenticated()">
+
+    </div>
+    <div sec:authorize="isAnonymous()">
         <p> Are you a company owner? <a href="/register-company" >Create a new profile for yourself</a> and manage your restaurant. <br>
         <p> Already have a profile? <a href="/login"> Sign in here </a></p>
     </div>

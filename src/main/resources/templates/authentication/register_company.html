@@ -30,7 +30,7 @@
                        th:text="${error}">Validation error</p>
                 </div>
                 <div>
-                    <label>Personal code (no -):</label>
+                    <label>Personal code (without -):</label>
                     <input th:field="*{personalCode}"/>
                     <p th:each="error : ${#fields.errors('personalCode')}"
                        th:text="${error}">Validation error</p>

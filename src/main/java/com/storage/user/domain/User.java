@@ -1,6 +1,8 @@
 package com.storage.user.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -9,28 +11,36 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
     private Integer id;
-
+    @NotBlank(message = "Username cannot be empty!")
+    @Size(min = 4, max = 64, message = "Username must be at least 4 characters long!")
     @Column(name = "username", nullable = false, length = 128)
     private String username;
 
+    @NotBlank(message = "Password cannot be empty!")
+    @Size(min = 4, max = 64, message = "Password must be at least 4 characters long!")
     @Column(name = "password", nullable = false, length = 128)
     private String password;
 
+    @NotBlank(message = "Email cannot be empty!")
     @Column(name = "email", nullable = false, length = 128)
     private String email;
 
     @Column(name = "enabled")
     private Boolean enabled;
 
+    @NotBlank(message = "Name cannot be empty!")
     @Column(name = "name", nullable = false, length = 128)
     private String name;
 
     @Column(name = "roles", nullable = false, length = 256)
     private String roles;
 
+    @NotBlank(message = "Surname cannot be empty!")
     @Column(name = "surname", nullable = false, length = 128)
     private String surname;
 
+    @NotBlank(message = "Personal code cannot be empty!")
+    @Size(min = 11, max = 11, message = "Personal code must be at 11 characters long!")
     @Column(name = "personal_code", nullable = false, length = 11)
     private String personalCode;
 
