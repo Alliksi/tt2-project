@@ -19,20 +19,22 @@
             <div th:if="${param.wrong != null}">
                 Invalid username or password!
             </div>
+            <button type="button" th:text="en" onclick="window.location.href='?lang=en'"></button>
+            <button type="button" th:text="lv" onclick="window.location.href='?lang=lv'"></button>
             <form th:action="@{/login}" method="post">
                 <div>
                     <div class="mb-3">
                         <label for="username">Username</label>
-                        <input class="form-control" type="text" id="username" name="username" placeholder="Username" autofocus="autofocus" required/>
+                        <input class="form-control" type="text" id="username" name="username" th:placeholder="#{login.label.username}" autofocus="autofocus" required/>
                     </div>
                     <div class="mb-3">
                         <label for="password">Password</label>
-                        <input class="form-control" type="password" id="password" name="password" placeholder="Password" required/>
+                        <input class="form-control" type="password" id="password" name="password" th:placeholder="#{login.label.password}" required/>
                     </div>
-                    <button class="btn btn-secondary" type="submit">Sign in</button>
+                    <button class="btn btn-secondary" type="submit" th:text="#{signin}">Sign in</button>
                 </div >
             </form>
-            <i>Don't have an account? <a href="../register-company">Register</a></i>
+            <i><span th:text="#{login.label.noaccount}"></span> <a href="../register-company" th:text="#{register}">Register</a></i>
             <p th:if="${param.wrong != null}"><i>In case you forgot your password/username, contact your company storage system administrator.</i></p>
         </div>
     </div>
