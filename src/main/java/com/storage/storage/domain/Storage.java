@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
+@Table(name = "storages", schema = "public", catalog = "restaurant-storage")
 public class Storage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

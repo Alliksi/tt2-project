@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.Objects;
 
 @Entity
+@Table(name = "deliveries", schema = "public", catalog = "restaurant-storage")
 public class Delivery {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
