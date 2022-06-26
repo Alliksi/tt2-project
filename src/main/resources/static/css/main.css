@@ -6,7 +6,7 @@
     font-family: 'Ubuntu', sans-serif;
 }
 body {
-    background-color: white;
+    background-color: #F8F8F8;
     background-image: url("images/login_page_background.jpg");
     background-size: cover;
     margin: 0;
@@ -16,9 +16,9 @@ body {
 .main {
     width: 90%;
     margin: 0 5% 0 5%;
-    background-color: white;
-    min-height: 60vh;
-    padding: 20px;
+    background-color:#F8F8F8;
+    min-height: 85vh;
+    padding: 20px 40px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     opacity: 90%;
@@ -33,7 +33,7 @@ body {
 }
 
 .auth .login input {
-    border: 1px gray solid;
+    border: 1px #777777 solid;
     border-radius: 3px;
 }
 
