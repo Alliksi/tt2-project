@@ -1,4 +1,4 @@
-package com.storage.user.models;
+package com.storage.user.model;
 
 import com.storage.user.domain.User;
 import org.springframework.security.core.GrantedAuthority;

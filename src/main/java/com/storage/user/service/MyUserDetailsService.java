@@ -1,7 +1,7 @@
 package com.storage.user.service;
 
 import com.storage.user.domain.User;
-import com.storage.user.models.MyUserDetails;
+import com.storage.user.model.MyUserDetails;
 import com.storage.user.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

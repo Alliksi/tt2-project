@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>ProductMe</title>
+    <div th:replace="fragments/includes"></div>
+</head>
+<body>
+<div th:replace="fragments/navbar"></div>
+<div>
+    <form th:action="@{/owners/employees/add}" th:object="${employee}" method="POST" enctype="utf8">
+        <h3>Information about the employee</h3><hr>
+        <div>
+            <div class="form-group">
+                <label for="name">First name:</label>
+                <input class="form-control" id="name" placeholder="First name" th:field="*{name}" required/>
+                <p th:each="error : ${#fields.errors('name')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div class="form-group">
+                <label for="surname">Surname:</label>
+                <input class="form-control" id="surname" placeholder="Surname" th:field="*{surname}" required/>
+                <p th:each="error : ${#fields.errors('surname')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div class="form-group">
+                <label for="personCode">Personal code:</label>
+                <input class="form-control" id="personCode" placeholder="Personal code" th:field="*{personalCode}" required/>
+                <p th:each="error : ${#fields.errors('personalCode')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input class="form-control" id="username" placeholder="Username" th:field="*{username}" required/>
+                <p th:each="error: ${#fields.errors('username')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input class="form-control" id="email" placeholder="Email" type="email" th:field="*{email}" required/>
+                <p th:each="error : ${#fields.errors('email')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div>
+                <label for="role">Role:</label>
+                <select required th:field="*{roles}" name="role" id="role">
+                    <option value="ROLE_ADMIN">Administrator</option>
+                    <option value="ROLE_WORKER">Worker</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Restaurant:</label>
+                <select required th:field="*{restaurant}" multiple class="selectpicker" data-live-search="true">
+                    <option th:each="availableRestaurant : ${restaurants}" th:value="${availableRestaurant.id}"
+                            th:text="${availableRestaurant.name + ' ' + availableRestaurant.registrationNumber}"></option>
+                </select>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Add user</button>
+    </form>
+</div>
+<div th:replace="fragments/footer"></div>
+</body>
+
+</html>

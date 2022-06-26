@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -39,11 +40,27 @@ public class UserService implements IUserService{
         user.setUsername(companyRegistrationDto.getUsername());
         user.setPersonalCode(companyRegistrationDto.getPersonalCode());
         final String encryptedPassword = _passwordEncoder.encode(companyRegistrationDto.getPassword());
-        System.out.println(encryptedPassword);
         user.setPassword(encryptedPassword);
         user.setEmail(companyRegistrationDto.getEmail());
         user.setEnabled(true);
         user.setRoles(roles);
+        return _userRepository.save(user);
+    }
+
+    @Override
+    public User registerNewUser(User user) throws UserAlreadyExistsException{
+        if (checkIfUserExistsByPersonalCode(user.getPersonalCode())) {
+            throw new UserAlreadyExistsException("An employee with personal code "
+                    + user.getPersonalCode() +" already exists in our database.");
+        }
+        if (checkIfUserExistsByEmail(user.getPersonalCode())) {
+            throw new UserAlreadyExistsException("An employee with email "
+                    + user.getEmail() +" already exists in our database.");
+        }
+
+        final String encryptedPassword = _passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
+        user.setEnabled(true);
         return _userRepository.save(user);
     }
 
@@ -61,5 +78,13 @@ public class UserService implements IUserService{
 
     public User getUserByUsername(String username) {
         return _userRepository.findByUsername(username).orElse(null);
+    }
+
+    public List<User> getAllUsersByRestaurantId(Integer restaurantId) {
+        return _userRepository.findAllByRestaurantId(restaurantId);
+    }
+
+    public User getUserById(Integer id){
+        return _userRepository.findById(id).orElse(null);
     }
 }
