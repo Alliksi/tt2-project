@@ -1,0 +1,4 @@
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+    <div><a class="dropdown-item" href="/admin">Admin dashboard</a></div>
+</div>

@@ -4,12 +4,20 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Index</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>title</title>
+    <div th:replace="fragments/includes"></div>
 </head>
 <body>
-    <p> Are you a company owner? <a href="/register-company" >Create a new profile for yourself</a> and manage your restaurant. <br>
-    <p> Already have a profile? <a href="/login"> Sign in here </a></p>
-
+<div th:replace="fragments/navbar"></div>
+<div>
+    <div>
+        <p> Are you a company owner? <a href="/register-company" >Create a new profile for yourself</a> and manage your restaurant. <br>
+        <p> Already have a profile? <a href="/login"> Sign in here </a></p>
+    </div>
+</div>
+<div th:replace="fragments/footer"></div>
 </body>
 </html>
