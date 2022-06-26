@@ -28,6 +28,7 @@
                     <th scope="col">Role</th>
                     <th scope="col">Personal code</th>
                     <th scope="col">Enabled</th>
+                    <th scope="col">Restaurant</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -40,6 +41,7 @@
                     <td th:text="${employee.roles}"></td>
                     <td th:text="${employee.personalCode}"></td>
                     <td th:text="${employee.enabled}"></td>
+                    <td th:text="${employee.restaurant.name}"></td>
                     <td>
                         <a class="btn btn-primary" th:href="@{/owners/employees/edit/{employeeId}(employeeId = ${employee.id})}">Edit</a>
                     </td>

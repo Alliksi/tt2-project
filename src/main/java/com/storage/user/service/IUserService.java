@@ -15,4 +15,6 @@ public interface IUserService {
     User getUserByUsername(String username);
     List<User> getAllUsersByRestaurantId(Integer restaurantId);
     User getUserById(Integer id);
+    User updateUser(User user, Integer userToUpdateId);
+    User deleteUser(Integer id);
 }

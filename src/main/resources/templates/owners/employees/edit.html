@@ -14,7 +14,66 @@
 <body>
 <div th:replace="fragments/navbar"></div>
 <div>
-
+    <h2>Edit employees information.</h2>
+    <div th:if="${employee == null}">
+        <h2 th:text="'Failed to find the given employee.'"></h2>
+    </div>
+    <div th:unless="${employee == null}">
+        <form th:action="@{/owners/employees/update/{employeeId}(employeeId = ${employee.id})}" method="post" th:object="${employee}">
+            <div class="mb-3">
+                <label class="control-label" for="name">Name:</label>
+                <input id="name" class="form-control" th:field="*{name}">
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+            </div>
+            <div class="mb-3">
+                <label class="control-label" for="surname">Surname:</label>
+                <input id="surname" class="form-control" th:field="*{surname}">
+                <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></p>
+            </div>
+            <div class="mb-3">
+                <label class="control-label" for="personalCode">Personal code:</label>
+                <input id="personalCode" class="form-control" th:field="*{personalCode}">
+                <p th:if="${#fields.hasErrors('personalCode')}" th:errors="*{personalCode}"></p>
+            </div>
+            <div class="mb-3">
+                <label class="control-label" for="username">Username:</label>
+                <input id="username" class="form-control" th:field="*{username}">
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+            </div>
+            <div class="mb-3">
+                <label class="control-label" for="newPassword">Password: (leave blank, if you do not want to update)</label>
+                <input id="newPassword" class="form-control" th:object="${newPassword}" th:field="*{password}">
+            </div>
+            <div class="mb-3">
+                <label class="control-label" for="email">Email:</label>
+                <input id="email" class="form-control" th:field="*{email}">
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+            </div>
+            <div class="mb-3">
+                <label class="control-label" for="enabled">Enabled:</label>
+                <input type="checkbox" id="enabled" name="enabled" th:checked="*{enabled}" />
+            </div>
+            <div>
+                <label for="role">Role:</label>
+                <select required th:field="*{roles}" name="role" id="role">
+                    <option value="ROLE_ADMIN">Administrator</option>
+                    <option value="ROLE_WORKER">Worker</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="control-label">Restaurant:</label>
+                <select required th:field="*{restaurant}" multiple class="selectpicker" data-live-search="true">
+                    <option th:each="availableRestaurant : ${restaurants}" th:value="${availableRestaurant.id}"
+                            th:text="${availableRestaurant.name + ' ' + availableRestaurant.registrationNumber}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success">Save employee information</button>
+                <a class="btn btn-danger float-right"
+                   th:href="@{/owners/employees/delete/{employeeId}(employeeId = ${employee.id})}">Delete employee</a>
+            </div>
+        </form>
+    </div>
 </div>
 <div th:replace="fragments/footer"></div>
 </body>

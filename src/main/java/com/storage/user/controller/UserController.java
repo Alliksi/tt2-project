@@ -8,6 +8,7 @@ import com.storage.general.utility.PasswordGenerator;
 import com.storage.restaurant.domain.Restaurant;
 import com.storage.restaurant.service.IRestaurantService;
 import com.storage.user.domain.User;
+import com.storage.user.dto.NewPasswordDto;
 import com.storage.user.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,13 +69,16 @@ public class UserController {
     }
 
     @GetMapping("/owners/employees/edit/{employeeId}")
-    public String showEditOwnerUserView(@PathVariable("employeeId") int employeeIdToUpdate, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "owners/employees/edit";
-        }
-
+    public String showEditOwnerUserView(@PathVariable("employeeId") int employeeIdToUpdate, Principal principal, Model model) {
+        User admin = _userService.getUserByUsername(principal.getName());
+        Company company = _companyService.getCompanyByUser(admin);
+        List<Restaurant> restaurants = _restaurantService.getAllRestaurantsByCompanyId(company.getId());
         User employeeToUpdate = _userService.getUserById(employeeIdToUpdate);
-
+        NewPasswordDto newPassword = new NewPasswordDto();
+        model.addAttribute("newPassword", newPassword);
+        if(restaurants != null) {
+            model.addAttribute("restaurants", restaurants);
+        }
         if (employeeToUpdate != null) {
             model.addAttribute("employee", employeeToUpdate);
             return "owners/employees/edit";
@@ -102,9 +106,23 @@ public class UserController {
         return "owners/employees/added_info";
     }
 
-//    @GetMapping("owners/employees/added_info")
-//    public String showOwnerAddedEmployeeInfo(Model model) {
-//
-//        return "owners/employees/added_info";
-//    }
+    @PostMapping(value={"/owners/employees/update/{employeeId}"})
+    public String editEmployee(@PathVariable("employeeId") int employeeToUpdate,
+                               @ModelAttribute("employee") @Valid User user,
+                               @ModelAttribute("newPassword") @Valid NewPasswordDto newPassword, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            return "owners/employees/edit";
+        }
+        if(newPassword.getPassword() != null && !newPassword.getPassword().equals("")){
+            user.setPassword(newPassword.getPassword());
+        }
+        _userService.updateUser(user, employeeToUpdate);
+        return "redirect:/owners/employees";
+    }
+
+    @GetMapping(value={"/owners/employees/delete/{employeeId}"})
+    public String deleteEmployee(@PathVariable("employeeId") int employeeToDelete, Model model){
+        _userService.deleteUser(employeeToDelete);
+        return "redirect:/owners/employees";
+    }
 }
