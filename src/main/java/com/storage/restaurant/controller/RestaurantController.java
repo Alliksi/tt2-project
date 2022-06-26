@@ -31,9 +31,9 @@ import java.util.List;
 @Controller
 public class RestaurantController {
 
-    final IRestaurantService _restaurantService;
-    final ICompanyService _companyService;
-    final IUserService _userService;
+    private final IRestaurantService _restaurantService;
+    private final ICompanyService _companyService;
+    private final IUserService _userService;
 
     public RestaurantController(IRestaurantService _restaurantService, ICompanyService companyService, IUserService userService) {
         this._restaurantService = _restaurantService;

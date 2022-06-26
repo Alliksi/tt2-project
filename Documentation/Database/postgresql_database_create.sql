@@ -31,6 +31,7 @@ create table Users (
 	Roles varchar(256) NOT NULL,
 	Surname varchar(128) NOT NULL,
 	Personal_code nchar(11) NOT NULL,
+	Picture varchar(256),
 	Restaurant_ID integer
 );
 
@@ -52,15 +53,15 @@ create table Restaurants (
 	Name varchar(128) NOT NULL,
 	Registration_number varchar(11) NOT NULL,
 	Address varchar(256) NOT NULL,
-	Company_ID integer REFERENCES Companies(Company_ID)
-);
+	Company_ID integer REFERENCES Companies(Company_ID) ON UPDATE CASCADE ON DELETE CASCADE
+); 
 
 create table Working_time (
 	Working_time_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	Shift_start Time NOT NULL,
 	Shift_end Time NOT NULL,
 	Day_of_week int NOT NULL,
-	Restaurant_ID integer references Restaurants(Restaurant_ID)
+	Restaurant_ID integer references Restaurants(Restaurant_ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 create table Deliveries (

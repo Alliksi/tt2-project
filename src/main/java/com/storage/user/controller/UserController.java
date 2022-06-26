@@ -27,9 +27,9 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    final IUserService _userService;
-    final IRestaurantService _restaurantService;
-    final ICompanyService _companyService;
+    private final IUserService _userService;
+    private final IRestaurantService _restaurantService;
+    private final ICompanyService _companyService;
 
     public UserController(IUserService _userService, IRestaurantService restaurantService, ICompanyService companyService) {
         this._userService = _userService;
@@ -126,9 +126,9 @@ public class UserController {
         return "redirect:/owners/employees";
     }
 
-    @GetMapping(value={"/owners/employees/delete/{employeeId}"})
-    public String deleteEmployee(@PathVariable("employeeId") int employeeToDelete, Model model){
-        _userService.deleteUser(employeeToDelete);
+    @GetMapping(value={"/owners/employees/disable/{employeeId}"})
+    public String disableEmployee(@PathVariable("employeeId") int employeeToDisable, Model model){
+        _userService.disableUser(employeeToDisable);
         return "redirect:/owners/employees";
     }
 }

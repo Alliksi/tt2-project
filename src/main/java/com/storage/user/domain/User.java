@@ -1,10 +1,14 @@
 package com.storage.user.domain;
 
+import com.storage.company.domain.Company;
+import com.storage.delivery.domain.Delivery;
 import com.storage.restaurant.domain.Restaurant;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -49,6 +53,17 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
+
+    @Column(name = "picture", length = 256)
+    private String picture;
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
     public Restaurant getRestaurant() {
         return restaurant;

@@ -46,6 +46,7 @@ public class UserService implements IUserService{
         user.setEmail(companyRegistrationDto.getEmail());
         user.setEnabled(true);
         user.setRoles(roles);
+        user.setPicture(null);
         return _userRepository.save(user);
     }
 
@@ -94,16 +95,31 @@ public class UserService implements IUserService{
 
         User userToUpdate = _userRepository.findById(userToUpdateId).orElse(null);
         if(userToUpdate != null) {
-            userToUpdate.setName(user.getName());
-            userToUpdate.setUsername(user.getUsername());
-            userToUpdate.setEnabled(user.getEnabled());
-            userToUpdate.setPersonalCode(user.getPersonalCode());
-            userToUpdate.setSurname(user.getSurname());
-            userToUpdate.setEmail(user.getEmail());
-            userToUpdate.setRoles(user.getRoles());
-            userToUpdate.setRestaurant(user.getRestaurant());
-            if (user.getPassword() != null && user.getPassword() != userToUpdate.getPassword() ) {
-                System.out.println(user.getPassword() + "   " + userToUpdate.getPassword());
+            if(user.getName() != null && user.getName() != "") {
+                userToUpdate.setName(user.getName());
+            }
+            if(user.getUsername() != null && user.getUsername() != "") {
+                userToUpdate.setUsername(user.getUsername());
+            }
+            if(user.getEnabled() != null) {
+                userToUpdate.setEnabled(user.getEnabled());
+            }
+            if(user.getPersonalCode() != null && user.getPersonalCode() != "") {
+                userToUpdate.setPersonalCode(user.getPersonalCode());
+            }
+            if(user.getSurname() != null && user.getSurname() != "") {
+                userToUpdate.setSurname(user.getSurname());
+            }
+            if(user.getEmail() != null && user.getEmail() != "") {
+                userToUpdate.setEmail(user.getEmail());
+            }
+            if(user.getRoles() != null && user.getRoles() != "") {
+                userToUpdate.setRoles(user.getRoles());
+            }
+            if(user.getRestaurant() != null){
+                userToUpdate.setRestaurant(user.getRestaurant());
+            }
+            if (user.getPassword() != null && user.getPassword() != "" && user.getPassword() != userToUpdate.getPassword() ) {
                 final String encryptedPassword = _passwordEncoder.encode(user.getPassword());
                 userToUpdate.setPassword(encryptedPassword);
             }
@@ -124,4 +140,23 @@ public class UserService implements IUserService{
         }
         return null;
     }
+
+    public User updatePicture(String picture,String userToUpdateName){
+        User userToUpdate = _userRepository.findByUsername(userToUpdateName).orElse(null);
+        if(userToUpdate != null) {
+            userToUpdate.setPicture(picture);
+            return _userRepository.save(userToUpdate);
+        }
+        return null;
+    }
+
+    public User disableUser(Integer userId){
+        User user = _userRepository.findById(userId).orElse(null);
+        if(user != null) {
+            user.setEnabled(false);
+            return _userRepository.save(user);
+        }
+        return null;
+    }
+
 }

@@ -17,4 +17,6 @@ public interface IUserService {
     User getUserById(Integer id);
     User updateUser(User user, Integer userToUpdateId);
     User deleteUser(Integer id);
+    User updatePicture(String picture, String userToUpdateName);
+    User disableUser(Integer userId);
 }

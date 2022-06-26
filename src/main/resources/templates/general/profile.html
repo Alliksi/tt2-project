@@ -13,8 +13,45 @@
 </head>
 <body>
 <div th:replace="fragments/navbar"></div>
-<div>
+<div class="main">
+    <div th:if="${user == null}">
+        <h2 th:text="'Failed to find information about the profile.'"></h2>
+    </div>
+    <div th:unless="${user == null}">
+        <h2>Add a new picture for your profile: </h2>
+        <form th:action="@{/profile/picture/update/(userId = ${user.id})}" method="post" enctype="multipart/form-data" th:object="${picture}">
+            <div class="mb-3">
+                <label class="control-label" for="username">Photo:</label>
+                <input type="file" name="image" accept="image/png, image/jpeg" th:field="*{image}"/>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success">Save picture</button>
+            </div>
+        </form>
 
+        <h2>Update your profile: </h2>
+        <form th:action="@{/profile/information/update}" method="post" th:object="${user}">
+            <div class="mb-3">
+                <label class="control-label" for="username">Username:</label>
+                <input id="username" class="form-control" th:field="*{username}">
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+            </div>
+            <div class="mb-3">
+                <label class="control-label" for="newPassword">Password: (leave blank, if you do not want to update)</label>
+                <input id="newPassword" class="form-control"  type="password"  th:object="${newPassword}" th:field="*{password}">
+            </div>
+            <div class="mb-3">
+                <label class="control-label" for="email">Email:</label>
+                <input id="email" class="form-control" th:field="*{email}">
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-success">Save updates</button>
+                <a class="btn btn-danger float-right"
+                   th:href="@{/profile/disable/{userId}(userId = ${user.id})}">Disable your account</a>
+            </div>
+        </form>
+    </div>
 </div>
 <div th:replace="fragments/footer"></div>
 </body>
