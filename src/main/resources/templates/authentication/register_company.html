@@ -12,70 +12,69 @@
     <div th:replace="fragments/includes"></div>
 </head>
 <body>
-<div id="register-company">
+<div id="register-company" class="auth">
     <div class="d-flex justify-content-center">
         <div class="container bg-light login">
             <form th:action="@{/register-company}" th:object="${company}" method="POST" enctype="utf8">
-                <h3>Information about the owner: </h3>
-                <div>
-                    <label>First name:</label>
-                    <input th:field="*{personName}"/>
-                    <p th:each="error : ${#fields.errors('personName')}"
-                       th:text="${error}">Validation error</p>
-                </div>
-                <div>
-                    <label>Surname:</label>
-                    <input th:field="*{personSurname}"/>
-                    <p th:each="error : ${#fields.errors('personSurname')}"
-                       th:text="${error}">Validation error</p>
-                </div>
-                <div>
-                    <label>Personal code (without -):</label>
-                    <input th:field="*{personalCode}"/>
-                    <p th:each="error : ${#fields.errors('personalCode')}"
-                       th:text="${error}">Validation error</p>
-                </div>
-                <div>
-                    <label>Username:</label>
-                    <input th:field="*{username}"/>
-                    <p th:each="error: ${#fields.errors('username')}"
-                       th:text="${error}">Validation error</p>
-                </div>
-                <div>
-                    <label>Email:</label>
-                    <input type="email" th:field="*{email}"/>
-                    <p th:each="error : ${#fields.errors('email')}"
-                       th:text="${error}">Validation error</p>
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input type="password" th:field="*{password}"/>
-                    <p th:each="error : ${#fields.errors('password')}"
-                       th:text="${error}">Validation error</p>
-                </div>
-                <div>
-                    <label>Password again:</label>
-                    <input type="password" th:field="*{matchingPassword}"/>
-                </div>
-
-                <h3>Information about the company: </h3>
-                <div>
-                    <label>Company name:</label>
-                    <input th:field="*{companyName}"/>
-                    <p th:each="error: ${#fields.errors('companyName')}"
-                       th:text="${error}">Validation error</p>
-                </div>
-                <div>
-                    <label>Registration number:</label>
-                    <input th:field="*{registrationNumber}"/>
-                    <p th:each="error : ${#fields.errors('registrationNumber')}"
-                       th:text="${error}">Validation error</p>
-                </div>
-
-                <button type="submit">Register!</button>
+                    <h3>Information about the owner</h3><hr>
+                    <div>
+                        <div class="form-group">
+                            <label for="personName">First name:</label>
+                            <input class="form-control" id="personName" placeholder="First name" th:field="*{personName}" required/>
+                            <p th:each="error : ${#fields.errors('personName')}"
+                               th:text="${error}">Validation error</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="personSurname">Surname:</label>
+                            <input class="form-control" id="personSurname" placeholder="Surname" th:field="*{personSurname}" required/>
+                            <p th:each="error : ${#fields.errors('personSurname')}"
+                               th:text="${error}">Validation error</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="personCode">Personal code:</label>
+                            <input class="form-control" id="personCode" placeholder="Personal code" th:field="*{personalCode}" required/>
+                            <p th:each="error : ${#fields.errors('personalCode')}"
+                               th:text="${error}">Validation error</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username:</label>
+                            <input class="form-control" id="username" placeholder="Username" th:field="*{username}" required/>
+                            <p th:each="error: ${#fields.errors('username')}"
+                               th:text="${error}">Validation error</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input class="form-control" id="email" placeholder="Email" type="email" th:field="*{email}" required/>
+                            <p th:each="error : ${#fields.errors('email')}"
+                               th:text="${error}">Validation error</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input class="form-control" id="password" placeholder="Password" type="password" th:field="*{password}" required/>
+                            <p th:each="error : ${#fields.errors('password')}"
+                               th:text="${error}">Validation error</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="passwordAgain">Password again:</label>
+                            <input class="form-control" id="passwordAgain" placeholder="Repeat password" type="password" th:field="*{matchingPassword}" required/>
+                        </div>
+                    </div>
+                    <h3>Information about the company</h3><hr>
+                        <div class="form-group">
+                            <label for="companyName">Company name:</label>
+                            <input class="form-control" id="companyName" placeholder="Company name" th:field="*{companyName}" required/>
+                            <p th:each="error: ${#fields.errors('companyName')}"
+                               th:text="${error}">Validation error</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="regNumber">Registration number:</label>
+                            <input class="form-control" id="regNumber" placeholder="Registration number" th:field="*{registrationNumber}" required/>
+                            <p th:each="error : ${#fields.errors('registrationNumber')}"
+                               th:text="${error}">Validation error</p>
+                        </div>
+                    <button class="btn btn-primary" type="submit">Register!</button>
             </form>
-
-            <a th:href="@{/login.html}">Already have a company registered? Log in.</a>
+            <i>Already registered? <a href="../login">Log in</a></i>
         </div>
     </div>
     <div th:replace="fragments/footer"></div>

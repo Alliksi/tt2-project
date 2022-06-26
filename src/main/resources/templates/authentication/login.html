@@ -12,26 +12,28 @@
     <div th:replace="fragments/includes"></div>
 </head>
 <body>
-<div id="login">
+<div id="login" class="auth">
     <div class="d-flex justify-content-center">
         <div class="container bg-light login">
-            <h1>Login</h1>
+            <h1><b>ProductMe</b></h1> <hr>
             <div th:if="${param.wrong != null}">
                 Invalid username or password!
             </div>
             <form th:action="@{/login}" method="post">
                 <div>
-                    <label for="username">Username</label>:
-                    <input type="text" id="username" name="username" autofocus="autofocus" required/> <br/>
-                </div>
-                <div>
-                    <label for="password">Password</label>:
-                    <input type="password" id="password" name="password" required/> <br/>
-                </div>
-                <input type="submit" value="Sign in"/>
-                <i>Don't have an account? <a href="../register-company">Register</a></i>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input class="form-control" type="text" id="username" name="username" placeholder="Username" autofocus="autofocus" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input class="form-control" type="password" id="password" name="password" placeholder="Password" required/>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Sign in</button>
+                </div >
             </form>
-            <p> In case you forgot your password/username, contact your company storage system administrator. </p>
+            <i>Don't have an account? <a href="../register-company">Register</a></i>
+            <p th:if="${param.wrong != null}"><i>In case you forgot your password/username, contact your company storage system administrator.</i></p>
         </div>
     </div>
     <div th:replace="fragments/footer"></div>
