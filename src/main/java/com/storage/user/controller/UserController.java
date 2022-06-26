@@ -74,6 +74,9 @@ public class UserController {
         Company company = _companyService.getCompanyByUser(admin);
         List<Restaurant> restaurants = _restaurantService.getAllRestaurantsByCompanyId(company.getId());
         User employeeToUpdate = _userService.getUserById(employeeIdToUpdate);
+        if(employeeToUpdate.getRestaurant().getCompany().getId() != company.getId()){
+            return "redirect:/owners/employees";
+        }
         NewPasswordDto newPassword = new NewPasswordDto();
         model.addAttribute("newPassword", newPassword);
         if(restaurants != null) {
@@ -92,6 +95,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "owners/employees/add";
         }
+
         employee.setEnabled(true);
         String password = new PasswordGenerator().generatePassword();
         employee.setPassword(password);
@@ -109,10 +113,12 @@ public class UserController {
     @PostMapping(value={"/owners/employees/update/{employeeId}"})
     public String editEmployee(@PathVariable("employeeId") int employeeToUpdate,
                                @ModelAttribute("employee") @Valid User user,
-                               @ModelAttribute("newPassword") @Valid NewPasswordDto newPassword, BindingResult bindingResult, Model model){
+                               @ModelAttribute("newPassword") @Valid NewPasswordDto newPassword, BindingResult bindingResult,
+                               Principal principal, Model model){
         if(bindingResult.hasErrors()){
             return "owners/employees/edit";
         }
+
         if(newPassword.getPassword() != null && !newPassword.getPassword().equals("")){
             user.setPassword(newPassword.getPassword());
         }

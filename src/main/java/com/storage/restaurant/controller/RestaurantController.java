@@ -79,8 +79,13 @@ public class RestaurantController {
     }
 
     @GetMapping(value={"/owners/restaurants/edit/{restaurantId}"})
-    public String showEditRestaurantView(@PathVariable("restaurantId") int restaurantId, Model model) {
+    public String showEditRestaurantView(@PathVariable("restaurantId") int restaurantId, Principal principal, Model model) {
+        User user = _userService.getUserByUsername(principal.getName());
+        Company company = _companyService.getCompanyByUser(user);
         Restaurant restaurant = _restaurantService.getRestaurantById(restaurantId);
+        if(restaurant.getCompany().getId() != company.getId()) {
+            return "redirect:/owners/restaurants";
+        }
         model.addAttribute("restaurant", restaurant);
         return "owners/restaurants/edit";
     }
