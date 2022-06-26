@@ -67,16 +67,22 @@ public class ProfileController {
 
 
     @PostMapping("/picture/update")
-        public String savePicture(
-                @ModelAttribute("picture") @Valid PictureDto picture,
-                BindingResult bindingResult, Principal principal) throws IOException {
+    public String savePicture(
+            @ModelAttribute("picture") @Valid PictureDto picture,
+            BindingResult bindingResult, Principal principal) throws IOException {
         if(!bindingResult.hasErrors() && picture != null && picture.getImage() != null){
             String fileName = StringUtils.cleanPath(Objects.requireNonNull(picture.getImage().getOriginalFilename()));
             User user = _userService.updatePicture(fileName, principal.getName());
             String uploadDir = "user-photos/" + user.getId();
             FileUploadUtil.saveFile(uploadDir, fileName, picture.getImage());
         }
-            return"redirect:/profile";
-        }
+        return"redirect:/profile";
+    }
+
+    @GetMapping(value={"/disable/{userId}"})
+    public String disableUser(@PathVariable("userId") int userToDisableId, Model model){
+        _userService.disableUser(userToDisableId);
+        return "redirect:/logout";
+    }
 
 }

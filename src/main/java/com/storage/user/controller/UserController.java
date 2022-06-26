@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -25,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping("/owners")
 public class UserController {
 
     private final IUserService _userService;
@@ -37,7 +35,7 @@ public class UserController {
         this._companyService = companyService;
     }
 
-    @GetMapping("/owners/employees")
+    @GetMapping("/employees")
     public String showOwnerEmployeeDashboard(Principal principal, Model model) {
         User user = _userService.getUserByUsername(principal.getName());
         Company company = _companyService.getCompanyByUser(user);
@@ -57,7 +55,7 @@ public class UserController {
         return "owners/employees/dashboard";
     }
 
-    @GetMapping("/owners/employees/add")
+    @GetMapping("/employees/add")
     public String showOwnerAddEmployeeView(Principal principal, Model model) {
         User admin = _userService.getUserByUsername(principal.getName());
         Company company = _companyService.getCompanyByUser(admin);
@@ -68,7 +66,7 @@ public class UserController {
         return "owners/employees/add";
     }
 
-    @GetMapping("/owners/employees/edit/{employeeId}")
+    @GetMapping("/employees/edit/{employeeId}")
     public String showEditOwnerUserView(@PathVariable("employeeId") int employeeIdToUpdate, Principal principal, Model model) {
         User admin = _userService.getUserByUsername(principal.getName());
         Company company = _companyService.getCompanyByUser(admin);
@@ -90,7 +88,7 @@ public class UserController {
         return "owners/employees/dashboard";
     }
 
-    @PostMapping("/owners/employees/add")
+    @PostMapping("/employees/add")
     public String addEmployeeOwnerPermission(@Valid @ModelAttribute("employee") User employee, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "owners/employees/add";
@@ -110,7 +108,7 @@ public class UserController {
         return "owners/employees/added_info";
     }
 
-    @PostMapping(value={"/owners/employees/update/{employeeId}"})
+    @PostMapping(value={"/employees/update/{employeeId}"})
     public String editEmployee(@PathVariable("employeeId") int employeeToUpdate,
                                @ModelAttribute("employee") @Valid User user,
                                @ModelAttribute("newPassword") @Valid NewPasswordDto newPassword, BindingResult bindingResult,
@@ -126,7 +124,7 @@ public class UserController {
         return "redirect:/owners/employees";
     }
 
-    @GetMapping(value={"/owners/employees/disable/{employeeId}"})
+    @GetMapping(value={"/employees/disable/{employeeId}"})
     public String disableEmployee(@PathVariable("employeeId") int employeeToDisable, Model model){
         _userService.disableUser(employeeToDisable);
         return "redirect:/owners/employees";
