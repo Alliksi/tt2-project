@@ -13,7 +13,7 @@
 </head>
 <body>
 <div th:replace="fragments/navbar"></div>
-<div>
+<div class="main">
     <form th:action="@{/owners/employees/add}" th:object="${employee}" method="POST" enctype="utf8">
         <h3>Information about the employee</h3><hr>
         <div>

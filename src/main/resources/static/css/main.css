@@ -5,14 +5,23 @@
     border: 0;
     font-family: 'Ubuntu', sans-serif;
 }
-
-.auth {
-    background-color: honeydew;
+body {
+    background-color: white;
     background-image: url("images/login_page_background.jpg");
     background-size: cover;
     margin: 0;
     padding: 0;
     height: 100vh;
+}
+.main {
+    width: 90%;
+    margin: 0 5% 0 5%;
+    background-color: white;
+    min-height: 60vh;
+    padding: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    opacity: 90%;
 }
 .auth .login {
     border: 1px gray solid;
@@ -33,9 +42,18 @@
 }
 
 #footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
     height: 2rem;
     text-align: center;
+}
+#navbarNav {
+    padding-right: 5%;
+}
+#navbarUsername {
+    padding-left: 5%;
+}
+#navbar {
+    opacity: 90%;
 }
