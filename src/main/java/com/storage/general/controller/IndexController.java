@@ -11,9 +11,4 @@ public class IndexController {
     public String showIndexView() {
         return "general/index";
     }
-
-    @GetMapping(value={"/admin"})
-    public String showAdminDashboard() {
-        return "admins/index";
-    }
 }

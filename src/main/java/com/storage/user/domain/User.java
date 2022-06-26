@@ -1,5 +1,7 @@
 package com.storage.user.domain;
 
+import com.storage.restaurant.domain.Restaurant;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                     .and().authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                     .and().authorizeRequests().antMatchers("/worker/**").access("hasRole('ROLE_WORKER')")
-                    .and().authorizeRequests().antMatchers("/viewer/**").access("hasRole('ROLE_VIEWER')")
+                    .and().authorizeRequests().antMatchers("/**").access("hasRole('ROLE_OWNER')")
                     .and()
                 .formLogin()
                     .loginPage("/login")

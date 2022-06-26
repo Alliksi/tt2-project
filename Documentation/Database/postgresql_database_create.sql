@@ -67,16 +67,16 @@ create table Deliveries (
 	Delivery_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	Price MONEY NOT NULL,
 	Delivery_time Date NOT NULL,
-	Delivery_company_ID integer references Delivery_companies(Delivery_company_ID),
-	Administrator_ID integer REFERENCES Users(User_ID),
-	Restaurant_ID integer references Restaurants(Restaurant_ID)
+	Delivery_company_ID integer references Delivery_companies(Delivery_company_ID) ON UPDATE CASCADE ON DELETE CASCADE,
+	Administrator_ID integer REFERENCES Users(User_ID) ON UPDATE CASCADE ON DELETE CASCADE,
+	Restaurant_ID integer references Restaurants(Restaurant_ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 create table Storages (
 	Storage_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	Name varchar(128) NOT NULL,
 	Size numeric(8,3),
-	Restaurant_ID integer references Restaurants(Restaurant_ID)
+	Restaurant_ID integer references Restaurants(Restaurant_ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 create table Shelves (
@@ -84,7 +84,7 @@ create table Shelves (
 	Name varchar(128) NOT NULL,
 	Storage_type varchar(16) NOT NULL,
 	Allocated_space numeric(8,1) NOT NULL,
-	Storage_ID integer references Storages(Storage_ID)
+	Storage_ID integer references Storages(Storage_ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 create table Menu_content (
@@ -93,7 +93,7 @@ create table Menu_content (
 	Name varchar(128) NOT NULL,
 	Serving_date Date,
 	Number_of_calories numeric(7,2),
-	Restaurant_ID integer references Restaurants(Restaurant_ID)
+	Restaurant_ID integer references Restaurants(Restaurant_ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 create table Products (
@@ -102,15 +102,15 @@ create table Products (
 	Date_of_expiry Date NOT NULL,
 	Storage_type varchar(16) NOT NULL,
 	Name varchar(128) NOT NULL,
-	Shelf_ID integer references Shelves(Shelf_ID),
-	Delivery_ID integer references Deliveries(Delivery_ID)
+	Shelf_ID integer references Shelves(Shelf_ID) ON UPDATE CASCADE ON DELETE CASCADE,
+	Delivery_ID integer references Deliveries(Delivery_ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 create table Meals (
 	Meal_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	Amount numeric(8,4) NOT NULL,
-	Restaurant_ID integer references Restaurants(Restaurant_ID),
-	Menu_content_ID integer references Menu_content(Menu_content_ID)
+	Restaurant_ID integer references Restaurants(Restaurant_ID) ON UPDATE CASCADE ON DELETE CASCADE,
+	Menu_content_ID integer references Menu_content(Menu_content_ID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 create table Meals_products (

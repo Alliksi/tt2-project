@@ -1,4 +1,10 @@
 <div sec:authorize="hasRole('ROLE_ADMIN')">
-    <span th:text="${#authentication.getPrincipal().getUsername()}"></span>
-    <div><a class="dropdown-item" href="/admin">Admin dashboard</a></div>
+    <span th:text="'Hello, ' + ${#authentication.getPrincipal().getUsername()}"></span>
+    <div><a href="/admin">Admin dashboard</a></div>
+</div>
+<div sec:authorize="hasRole('ROLE_OWNER')">
+    <span th:text="'Hello, ' + ${#authentication.getPrincipal().getUsername()}"></span>
+    <div><a href="/owner">Owner dashboard</a></div>
+    <div><a href="/admin">Admin dashboard</a></div>
+    <div><a href="/owner/restaurants">Restaurant dashboard</a></div>
 </div>

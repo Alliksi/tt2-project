@@ -70,7 +70,8 @@ public class AuthenticationController {
                 return "authentication/register_company";
             }
 
-            User registeredUser = _userService.registerNewUser(registrationDto, "ROLE_ADMIN");
+            User registeredUser = _userService.registerNewUser(registrationDto, "ROLE_OWNER");
+
             Company registeredCompany = _companyService.registerNewCompany(registrationDto, registeredUser);
             _databaseLoggerService.log("User with ID: " + registeredUser.getId() + " registered a company with ID: " + registeredCompany.getId());
         }

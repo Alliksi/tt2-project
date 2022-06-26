@@ -1,6 +1,6 @@
-package com.storage.product.database.repository;
+package com.storage.product.repository;
 
-import com.storage.product.database.domain.Product;
+import com.storage.product.domain.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

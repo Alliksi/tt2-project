@@ -1,27 +1,25 @@
 package com.storage.product.controller;
 
-import com.storage.product.database.domain.Product;
-import com.storage.product.database.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.storage.product.domain.Product;
+import com.storage.product.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("admin")
 public class ProductController {
-    private final ProductService productService;
+
+    private final ProductService _productService;
 
     public ProductController(ProductService productService) {
-        this.productService = productService;
+        this._productService = productService;
     }
 
     @GetMapping("/products/list")
     public String listAll(Model model) {
-        List<Product> productList = productService.getAll();
+        List<Product> productList = _productService.getAll();
         model.addAttribute("products", productList);
         return "/products/list";
     }

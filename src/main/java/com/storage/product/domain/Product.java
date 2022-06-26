@@ -1,4 +1,4 @@
-package com.storage.product.database.domain;
+package com.storage.product.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

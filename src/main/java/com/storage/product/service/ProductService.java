@@ -1,12 +1,9 @@
-package com.storage.product.database.service;
+package com.storage.product.service;
 
-import com.storage.product.database.domain.Product;
-import com.storage.product.database.repository.ProductRepository;
+import com.storage.product.domain.Product;
+import com.storage.product.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.List;
 
 @Service
