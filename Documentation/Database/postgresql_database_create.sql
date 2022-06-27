@@ -8,18 +8,11 @@ DROP TABLE IF EXISTS Storages CASCADE;
 DROP TABLE IF EXISTS Deliveries CASCADE;
 DROP TABLE IF EXISTS Working_time CASCADE;
 DROP TABLE IF EXISTS Delivery_companies CASCADE;
-DROP TABLE IF EXISTS Restaurants CASCADE;
 DROP TABLE IF EXISTS Logs CASCADE;
-DROP TABLE IF EXISTS Users CASCADE;	
+DROP TABLE IF EXISTS Restaurants CASCADE;
+DROP TABLE IF EXISTS Users CASCADE;
 DROP TABLE IF EXISTS Meals_products CASCADE;
 
-create table Logs (
-	Log_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-	Created timestamp NOT NULL,
-	Message varchar(1028) NOT NULL,
-	Controller_name varchar(128),
-	Status varchar(16)
-);
 
 create table Users (
 	User_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -54,7 +47,15 @@ create table Restaurants (
 	Registration_number varchar(11) NOT NULL,
 	Address varchar(256) NOT NULL,
 	Company_ID integer REFERENCES Companies(Company_ID) ON UPDATE CASCADE ON DELETE CASCADE
-); 
+);
+
+create table Logs (
+    Log_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    Created timestamp NOT NULL,
+    Message varchar(1028) NOT NULL,
+    Restaurant_ID int REFERENCES Restaurants(Restaurant_ID) ON UPDATE CASCADE ON DELETE CASCADE,
+    Status varchar(16)
+);
 
 create table Working_time (
 	Working_time_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

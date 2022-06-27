@@ -2,64 +2,74 @@ package com.storage.logger.database.service;
 
 import com.storage.logger.database.domain.Log;
 import com.storage.logger.database.repository.LogRepository;
-import com.sun.net.httpserver.HttpContext;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class DatabaseLoggerService implements IDatabaseLoggerService {
 
-    private LogRepository _logRepository;
+    private final LogRepository _logRepository;
 
-    public DatabaseLoggerService(LogRepository logRepository){
+    public DatabaseLoggerService(LogRepository logRepository) {
         _logRepository = logRepository;
     }
 
     @Override
-    public void log(String message){
-        log(message, null, null);
+    public void log(String message) {
+        log(message, null, 0);
     }
+
     @Override
-    public void log(String message, String status){
-        log(message, status, null);
+    public void log(String message, String status) {
+        log(message, status, 0);
     }
+
     @Override
-    public void log(String message, String status, String controllerName){
+    public void log(String message, String status, int restaurantId) {
         Log log = new Log();
         log.setCreated(new Timestamp(System.currentTimeMillis()));
         log.setMessage(message);
         if (status != null) log.setStatus(status);
-        if (controllerName != null) log.setControllerName(controllerName);
-        System.out.println(log.getCreated() + " / " + controllerName + " / " + status +  " / " + message);
+        if (restaurantId == 0) log.setRestaurantId(null);
+        else log.setRestaurantId(restaurantId);
+        System.out.println(log.getCreated() + " / " + restaurantId + " / " + status + " / " + message);
         _logRepository.save(log);
     }
 
     @Override
-    public void info(String message, String controllerName){
-        log(message, "Info", controllerName);
+    public void info(String message, int restaurantId) {
+        log(message, "Info", restaurantId);
     }
+
     @Override
-    public void warn(String message, String controllerName){
-        log(message, "Info", controllerName);
+    public void warn(String message, int restaurantId) {
+        log(message, "Info", restaurantId);
     }
+
     @Override
-    public void error(String message, String controllerName){
-        log(message, "Info", controllerName);
+    public void error(String message, int restaurantId) {
+        log(message, "Info", restaurantId);
     }
+
     @Override
-    public void info(String message){
-        info(message, null);
+    public void info(String message) {
+        info(message, 0);
     }
+
     @Override
-    public void warn(String message){
-        warn(message, null);
+    public void warn(String message) {
+        warn(message, 0);
     }
+
     @Override
-    public void error(String message){
-        error(message, null);
+    public void error(String message) {
+        error(message, 0);
     }
-    // TODO create more saveLogs where they dont define status or do and dont or do define controllername etc..
+
+    @Override
+    public List<Log> getAllLogs() {
+        return _logRepository.findAll();
+    }
 }

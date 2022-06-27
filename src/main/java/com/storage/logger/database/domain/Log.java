@@ -2,49 +2,34 @@ package com.storage.logger.database.domain;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "logs")
 public class Log {
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "log_id", nullable = false)
-    private Integer id;
-
-    @Column(name = "created", nullable = false)
+    @Id
+    @Column(name = "log_id")
+    private int logId;
+    @Basic
+    @Column(name = "created")
     private Timestamp created;
-
-    @Column(name = "message", nullable = false, length = 1028)
+    @Basic
+    @Column(name = "message")
     private String message;
-
-    @Column(name = "controller_name", length = 128)
-    private String controllerName;
-
-    @Column(name = "status", length = 16)
+    @Basic
+    @Column(name = "restaurant_id")
+    private Integer restaurantId;
+    @Basic
+    @Column(name = "status")
     private String status;
 
-    public String getStatus() {
-        return status;
+    public int getLogId() {
+        return logId;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getControllerName() {
-        return controllerName;
-    }
-
-    public void setControllerName(String controllerName) {
-        this.controllerName = controllerName;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
+    public void setLogId(int logId) {
+        this.logId = logId;
     }
 
     public Timestamp getCreated() {
@@ -55,11 +40,40 @@ public class Log {
         this.created = created;
     }
 
-    public Integer getId() {
-        return id;
+    public String getMessage() {
+        return message;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Integer getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(Integer restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Log logs = (Log) o;
+        return logId == logs.logId && Objects.equals(created, logs.created) && Objects.equals(message, logs.message) && Objects.equals(restaurantId, logs.restaurantId) && Objects.equals(status, logs.status);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(logId, created, message, restaurantId, status);
     }
 }
