@@ -16,7 +16,6 @@ public class MyUserDetails implements UserDetails {
     private String password;
     private boolean active;
     private List<GrantedAuthority> authorities;
-
     private String picture;
 
     public MyUserDetails(User user) {
@@ -26,6 +25,12 @@ public class MyUserDetails implements UserDetails {
         this.authorities = Arrays.stream(user.getRoles().split(";"))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+
+        if (user.getPicture() == null || user.getId() == null) {
+            this.picture = "/user-photos/blank_profile_picture.png";
+        } else {
+            this.picture = "/user-photos/" + user.getId() + "/" + user.getPicture();
+        }
     }
 
     @Override
@@ -66,9 +71,9 @@ public class MyUserDetails implements UserDetails {
     public String getPicture() {
         return picture;
     }
+
     public void setPicture(String picture) {
         this.picture = picture;
     }
-
 
 }

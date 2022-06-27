@@ -76,7 +76,7 @@ public class ProfileController {
             String uploadDir = "user-photos/" + user.getId();
             FileUploadUtil.saveFile(uploadDir, fileName, picture.getImage());
         }
-        return"redirect:/profile";
+        return"redirect:/logout";
     }
 
     @GetMapping(value={"/disable/{userId}"})
