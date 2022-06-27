@@ -49,10 +49,11 @@ body {
     text-align: center;
 }
 #navbarNav {
-    padding-right: 5%;
+    margin-right: 5%;
 }
 #navbarUsername {
-    padding-left: 5%;
+    margin-left: 5%;
+    padding: 0;
 }
 #navbar {
     opacity: 90%;
@@ -63,4 +64,10 @@ body {
 }
 .lang a {
     cursor: pointer;
+}
+
+#profilePic {
+    height: 40px;
+    object-fit: cover;
+    padding-right: 5px;
 }
