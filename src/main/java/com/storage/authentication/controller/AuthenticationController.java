@@ -55,21 +55,22 @@ public class AuthenticationController {
             return "authentication/register_company";
         }
         try {
+            var alreadyExists = false;
             if(_userService.checkIfUserExistsByPersonalCode(registrationDto.getPersonalCode())){
-                bindingResult.rejectValue("error.personalCode", "Personal code taken!");
-                return "authentication/register_company";
+                model.addAttribute("errorPersonalCode", "Personal code already taken!");
+                alreadyExists = true;
             }
 
             if(_companyService.checkIfCompanyExistsByRegistrationNumber(registrationDto.getRegistrationNumber())){
-                bindingResult.rejectValue("error.registrationNumber", "Registration number taken!");
-                return "authentication/register_company";
+                model.addAttribute("errorRegistrationNumber", "Registration number already taken!");
+                alreadyExists = true;
             }
 
             if(_userService.checkIfUserExistsByUsername(registrationDto.getUsername())){
-                bindingResult.rejectValue("error.username", "Username taken!");
-                return "authentication/register_company";
+                model.addAttribute("errorUsername", "Username already taken!");
+                alreadyExists = true;
             }
-
+            if (alreadyExists) return "authentication/register_company";
             User registeredUser = _userService.registerNewUser(registrationDto, "ROLE_OWNER");
 
             Company registeredCompany = _companyService.registerNewCompany(registrationDto, registeredUser);

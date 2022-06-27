@@ -40,6 +40,8 @@
                                th:field="*{personalCode}" required/>
                         <p th:each="error : ${#fields.errors('personalCode')}"
                            th:text="${error}">Validation error</p>
+
+                        <p class="errorMessage" th:text="${errorPersonalCode}"></p>
                     </div>
                     <div class="mb-3">
                         <label for="username">Username:</label>
@@ -47,6 +49,7 @@
                                th:field="*{username}" required/>
                         <p th:each="error: ${#fields.errors('username')}"
                            th:text="${error}">Validation error</p>
+                        <p class="errorMessage" th:text="${errorUsername}"></p>
                     </div>
                     <div class="mb-3">
                         <label for="email">Email:</label>
@@ -83,6 +86,7 @@
                            th:field="*{registrationNumber}" required/>
                     <p th:each="error : ${#fields.errors('registrationNumber')}"
                        th:text="${error}">Validation error</p>
+                    <p class="errorMessage" th:text="${errorRegistrationNumber}"></p>
                 </div>
                 <button class="btn btn-secondary" type="submit" th:text="#{register}">Register!</button>
             </form>

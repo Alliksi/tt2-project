@@ -71,3 +71,7 @@ body {
     object-fit: cover;
     padding-right: 5px;
 }
+.errorMessage {
+    color: red;
+    italic: true;
+}
