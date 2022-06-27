@@ -56,44 +56,43 @@ public class AuthenticationController {
         }
         try {
             var errorFound = false;
-
             if(registrationDto.getPassword().length() < 6){
-                model.addAttribute("errorPassword", "Password must be at least 6 characters long!");
+                model.addAttribute("errorPassword", "register.error.passwordTooShort");
                 errorFound = true;
             }
             if(registrationDto.getPersonalCode().length() != 11){
-                model.addAttribute("errorPersonalCode", "Personal code must be 11 characters long!");
+                model.addAttribute("errorPersonalCode", "register.error.personalCodeLength");
                 errorFound = true;
             }
             if(!registrationDto.getPersonalCode().matches("[0-9]+")){
-                model.addAttribute("errorPersonalCode", "Personal code must be numeric!");
+                model.addAttribute("errorPersonalCode", "register.error.personalCodeNumeric");
                 errorFound = true;
             }
             if(registrationDto.getRegistrationNumber().length() != 11){
-                model.addAttribute("errorRegistrationNumber", "Registration number must be 11 characters long!");
+                model.addAttribute("errorRegistrationNumber", "register.error.registrationNumberLength");
                 errorFound = true;
             }
             if(!registrationDto.getRegistrationNumber().matches("[0-9]+")){
-                model.addAttribute("errorRegistrationNumber", "Registration number must be numeric!");
+                model.addAttribute("errorRegistrationNumber", "register.error.registrationNumberNumeric");
                 errorFound = true;
             }
             if(registrationDto.getUsername().length() < 6){
-                model.addAttribute("errorUsername", "Username must be at least 6 characters long!");
+                model.addAttribute("errorUsername", "register.error.usernameLength");
                 errorFound = true;
             }
 
             if(_userService.checkIfUserExistsByPersonalCode(registrationDto.getPersonalCode())){
-                model.addAttribute("errorPersonalCode", "Personal code already taken!");
+                model.addAttribute("errorPersonalCode", "register.error.personalCodeTaken");
                 errorFound = true;
             }
 
             if(_companyService.checkIfCompanyExistsByRegistrationNumber(registrationDto.getRegistrationNumber())){
-                model.addAttribute("errorRegistrationNumber", "Registration number already taken!");
+                model.addAttribute("errorRegistrationNumber", "register.error.registrationNumberTaken");
                 errorFound = true;
             }
 
             if(_userService.checkIfUserExistsByUsername(registrationDto.getUsername())){
-                model.addAttribute("errorUsername", "Username already taken!");
+                model.addAttribute("errorUsername", "register.error.usernameTaken");
                 errorFound = true;
             }
 

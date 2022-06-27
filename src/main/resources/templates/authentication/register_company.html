@@ -40,8 +40,7 @@
                                th:field="*{personalCode}" required/>
                         <p th:each="error : ${#fields.errors('personalCode')}"
                            th:text="${error}">Validation error</p>
-
-                        <p class="errorMessage" th:text="${errorPersonalCode}"></p>
+                        <p class="errorMessage" th:text="(${errorPersonalCode} == null ? '' : #{${errorPersonalCode}})"></p>
                     </div>
                     <div class="mb-3">
                         <label for="username">Username:</label>
@@ -49,7 +48,7 @@
                                th:field="*{username}" required/>
                         <p th:each="error: ${#fields.errors('username')}"
                            th:text="${error}">Validation error</p>
-                        <p class="errorMessage" th:text="${errorUsername}"></p>
+                        <p class="errorMessage" th:text="(${errorUsername} == null ? '' : #{${errorUsername}})"></p>
                     </div>
                     <div class="mb-3">
                         <label for="email">Email:</label>
@@ -64,7 +63,7 @@
                                type="password" th:field="*{password}" required/>
                         <p th:each="error : ${#fields.errors('password')}"
                            th:text="${error}">Validation error</p>
-                        <p class="errorMessage" th:text="${errorPassword}"></p>
+                        <p class="errorMessage" th:text="(${errorPassword} == null ? '' : #{${errorPassword}})"></p>
                     </div>
                     <div class="mb-3">
                         <label for="passwordAgain">Password again:</label>
@@ -87,7 +86,7 @@
                            th:field="*{registrationNumber}" required/>
                     <p th:each="error : ${#fields.errors('registrationNumber')}"
                        th:text="${error}">Validation error</p>
-                    <p class="errorMessage" th:text="${errorRegistrationNumber}"></p>
+                    <p class="errorMessage" th:text="(${errorRegistrationNumber} == null ? '' : #{${errorRegistrationNumber}})"></p>
                 </div>
                 <button class="btn btn-secondary" type="submit" th:text="#{register}">Register!</button>
             </form>
