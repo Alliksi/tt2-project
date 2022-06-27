@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Transient;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -15,6 +16,8 @@ public class MyUserDetails implements UserDetails {
     private String password;
     private boolean active;
     private List<GrantedAuthority> authorities;
+
+    private String picture;
 
     public MyUserDetails(User user) {
         this.userName = user.getUsername();
@@ -59,5 +62,13 @@ public class MyUserDetails implements UserDetails {
     public boolean isEnabled() {
         return active;
     }
+
+    public String getPicture() {
+        return picture;
+    }
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
 
 }

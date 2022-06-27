@@ -33,3 +33,6 @@ build/
 .vscode/
 
 *.bak
+
+### Profile pictures ###
+/user-photos/**/*

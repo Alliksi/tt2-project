@@ -144,4 +144,9 @@ public class User {
     public void setId(Integer id) {
         this.id = id;
     }
+    @Transient
+    public String getPhotosImagePath() {
+        if (picture == null || id == null) return "/user-photos/" + "blank_profile_picture.png";
+        return "/user-photos/" + id + "/" + picture;
+    }
 }
