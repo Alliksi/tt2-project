@@ -2,8 +2,11 @@ package com.storage.logger.database.service;
 
 import com.storage.logger.database.domain.Log;
 import com.storage.logger.database.repository.LogRepository;
+import com.storage.user.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -11,26 +14,31 @@ import java.util.List;
 public class DatabaseLoggerService implements IDatabaseLoggerService {
 
     private final LogRepository _logRepository;
-
-    public DatabaseLoggerService(LogRepository logRepository) {
+    private final UserService _userService;
+    public DatabaseLoggerService(LogRepository logRepository, UserService _userService) {
         _logRepository = logRepository;
+        this._userService = _userService;
     }
 
     @Override
     public void log(String message) {
-        log(message, null, 0);
+        log(message, null, "System", 0);
+    }
+    @Override
+    public void log(String message, Principal principal) {
+        log(message, principal, null, 0);
+    }
+    @Override
+    public void log(String message, Principal principal, String status) {
+        log(message, principal, status, 0);
     }
 
     @Override
-    public void log(String message, String status) {
-        log(message, status, 0);
-    }
-
-    @Override
-    public void log(String message, String status, int restaurantId) {
+    public void log(String message, Principal principal, String status, int restaurantId) {
         Log log = new Log();
         log.setCreated(new Timestamp(System.currentTimeMillis()));
         log.setMessage(message);
+        log.setUserId(_userService.getUserByUsername(principal.getName()).getId());
         if (status != null) log.setStatus(status);
         if (restaurantId == 0) log.setRestaurantId(null);
         else log.setRestaurantId(restaurantId);
@@ -39,33 +47,40 @@ public class DatabaseLoggerService implements IDatabaseLoggerService {
     }
 
     @Override
-    public void info(String message, int restaurantId) {
-        log(message, "Info", restaurantId);
+    public void info(String message, Principal principal, int restaurantId) {
+        log(message, principal, "Info", restaurantId);
     }
-
     @Override
-    public void warn(String message, int restaurantId) {
-        log(message, "Info", restaurantId);
+    public void info(String message, Principal principal) {
+        log(message, principal, "Info");
     }
-
-    @Override
-    public void error(String message, int restaurantId) {
-        log(message, "Info", restaurantId);
-    }
-
     @Override
     public void info(String message) {
-        info(message, 0);
+        log("INFO: " + message);
     }
-
     @Override
-    public void warn(String message) {
-        warn(message, 0);
+    public void error(String message, Principal principal, int restaurantId) {
+        log(message, principal, "Error", restaurantId);
     }
-
+    @Override
+    public void error(String message, Principal principal) {
+        log(message, principal, "Error");
+    }
     @Override
     public void error(String message) {
-        error(message, 0);
+        log("ERROR: " + message);
+    }
+    @Override
+    public void warn(String message, Principal principal, int restaurantId) {
+        log(message, principal, "Warning", restaurantId);
+    }
+    @Override
+    public void warn(String message, Principal principal) {
+        log(message, principal, "Warning");
+    }
+    @Override
+    public void warn(String message) {
+        log("WARNING: " + message);
     }
 
     @Override

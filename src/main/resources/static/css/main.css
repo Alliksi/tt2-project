@@ -116,3 +116,6 @@ body {
 .infoText {
     font-style: italic;
 }
+container-section{
+    max-width: 100%;
+}

@@ -53,7 +53,8 @@ create table Logs (
     Log_ID integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     Created timestamp NOT NULL,
     Message varchar(1028) NOT NULL,
-    Restaurant_ID int REFERENCES Restaurants(Restaurant_ID) ON UPDATE CASCADE ON DELETE CASCADE,
+    Restaurant_ID int,
+    User_ID integer,
     Status varchar(16)
 );
 

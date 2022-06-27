@@ -13,32 +13,32 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 
 @Controller
 public class AuthenticationController {
 
-    private final IDatabaseLoggerService _databaseLoggerService;
+    private final IDatabaseLoggerService logger;
     private final IUserService _userService;
     private final ICompanyService _companyService;
 
     public AuthenticationController(IDatabaseLoggerService databaseLoggerService,
                                     IUserService userService, ICompanyService companyService){
-        _databaseLoggerService = databaseLoggerService;
+        logger = databaseLoggerService;
         _userService = userService;
         _companyService = companyService;
     }
 
     @GetMapping(value={"/login"})
     public String showLoginView() {
-        _databaseLoggerService.info("Logging on");
         return "authentication/login";
     }
 
     @GetMapping(value={"/login-error"})
     public String showInvalidLoginView(Model model) {
         model.addAttribute("invalid", true);
-        _databaseLoggerService.info("Incorrect login attempt");
+        logger.info("Incorrect login attempt");
         return "authentication/login";
     }
 
@@ -102,11 +102,12 @@ public class AuthenticationController {
             User registeredUser = _userService.registerNewUser(registrationDto, "ROLE_OWNER");
 
             Company registeredCompany = _companyService.registerNewCompany(registrationDto, registeredUser);
-            _databaseLoggerService.log("User with ID: " + registeredUser.getId() + " registered a company with ID: " + registeredCompany.getId());
+            logger.info("Registered with username: " + registrationDto.getUsername() + "" + " and registration number: " + registrationDto.getRegistrationNumber());
         }
         catch(Exception ex){
             System.err.println(ex);
             model.addAttribute("info", ex.toString());
+            logger.error("Error while registering new company: " + ex.toString());
             return "authentication/register_company";
         }
         model.addAttribute("success", "User created. Please log in.");

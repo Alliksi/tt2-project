@@ -20,6 +20,7 @@
             <tr>
                 <th scope="col"></th>
                 <th scope="col">Created</th>
+                <th scope="col">User ID</th>
                 <th scope="col">Restaurant ID</th>
                 <th scope="col">Status</th>
                 <th scope="col">Info</th>
@@ -29,6 +30,7 @@
             <tr scope="row" th:each="log : ${logs}">
                 <td></td>
                 <td th:text="${log.created}"></td>
+                <td th:text="${log.userId}"></td>
                 <td th:text="${log.restaurantId}"></td>
                 <td th:text="${log.status}"></td>
                 <td th:text="${log.message}"></td>

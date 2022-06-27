@@ -5,6 +5,7 @@ import com.storage.authentication.dto.CompanyRegistrationDto;
 import com.storage.company.domain.Company;
 import com.storage.company.service.CompanyService;
 import com.storage.company.service.ICompanyService;
+import com.storage.logger.database.service.IDatabaseLoggerService;
 import com.storage.product.domain.Product;
 import com.storage.restaurant.domain.Restaurant;
 import com.storage.restaurant.service.IRestaurantService;
@@ -34,11 +35,13 @@ public class RestaurantController {
     private final IRestaurantService _restaurantService;
     private final ICompanyService _companyService;
     private final IUserService _userService;
+    private final IDatabaseLoggerService logger;
 
-    public RestaurantController(IRestaurantService _restaurantService, ICompanyService companyService, IUserService userService) {
+    public RestaurantController(IRestaurantService _restaurantService, ICompanyService companyService, IUserService userService, IDatabaseLoggerService logger) {
         this._restaurantService = _restaurantService;
         this._companyService = companyService;
         this._userService = userService;
+        this.logger = logger;
     }
 
     @GetMapping(value={"/owners/restaurants"})
@@ -70,10 +73,12 @@ public class RestaurantController {
         if(company != null){
             restaurant.setCompany(company);
             _restaurantService.addRestaurant(restaurant);
+            logger.info("Added new restaurant: " + restaurant.getName(), principal);
             return "redirect:/owners/restaurants";
         }
         else{
             bindingResult.rejectValue("company", "company.not.found");
+            logger.error("Company owned by user not found", principal);
             return "owners/restaurants/add";
         }
     }
@@ -92,17 +97,19 @@ public class RestaurantController {
 
     @PostMapping(value={"/owners/restaurants/update/{restaurantId}"})
     public String editRestaurant(@PathVariable("restaurantId") int restaurantIdToUpdate,
-                                 @ModelAttribute("restaurant") @Valid Restaurant restaurant, BindingResult bindingResult, Model model){
+                                 @ModelAttribute("restaurant") @Valid Restaurant restaurant, Principal principal, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             return "owners/restaurants/edit";
         }
         _restaurantService.updateRestaurant(restaurant, restaurantIdToUpdate);
+        logger.info("Updated restaurant with id: " + restaurant.getId(), principal, restaurant.getId());
         return "redirect:/owners/restaurants";
     }
 
     @GetMapping(value={"/owners/restaurants/delete/{restaurantId}"})
-    public String deleteRestaurant(@PathVariable("restaurantId") int restaurantId, Model model){
+    public String deleteRestaurant(@PathVariable("restaurantId") int restaurantId, Model model, Principal principal){
         _restaurantService.deleteRestaurant(restaurantId);
+        logger.info("Deleted restaurant with id: " + restaurantId, principal, restaurantId);
         return "redirect:/owners/restaurants";
     }
     

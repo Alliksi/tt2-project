@@ -1,10 +1,12 @@
 package com.storage.general.controller;
 
 import com.storage.general.utility.FileUploadUtil;
+import com.storage.logger.database.service.IDatabaseLoggerService;
 import com.storage.user.domain.User;
 import com.storage.user.dto.NewPasswordDto;
 import com.storage.user.dto.PictureDto;
 import com.storage.user.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -21,9 +23,11 @@ import java.util.Objects;
 public class ProfileController {
 
     private final IUserService _userService;
-
-    public ProfileController(IUserService _userService) {
+    @Autowired
+    private final IDatabaseLoggerService logger;
+    public ProfileController(IUserService _userService, IDatabaseLoggerService databaseLoggerService) {
         this._userService = _userService;
+        logger = databaseLoggerService;
     }
 
 
@@ -80,6 +84,7 @@ public class ProfileController {
         User userToUpdate = _userService.getUserByUsername(principal.getName());
 
         _userService.updateUser(user, userToUpdate.getId());
+        logger.info("User " + user.getUsername() + " updated his profile");
         if (bindingResult.hasErrors()) {
             return "redirect:/profile";
         }
