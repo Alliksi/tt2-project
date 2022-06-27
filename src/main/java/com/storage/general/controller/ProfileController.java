@@ -80,7 +80,11 @@ public class ProfileController {
     }
 
     @GetMapping(value={"/disable/{userId}"})
-    public String disableUser(@PathVariable("userId") int userToDisableId, Model model){
+    public String disableUser(@PathVariable("userId") int userToDisableId, Principal principal, Model model){
+        User user = _userService.getUserByUsername(principal.getName());
+        if(user.getId() != userToDisableId){
+            return "redirect:/profile";
+        }
         _userService.disableUser(userToDisableId);
         return "redirect:/logout";
     }
