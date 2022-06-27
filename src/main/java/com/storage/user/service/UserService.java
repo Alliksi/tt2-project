@@ -162,12 +162,12 @@ public class UserService implements IUserService{
     }
 
     private User stripUserFields(User user){
-        user.setUsername(user.getUsername().stripTrailing().stripLeading());
-        user.setPersonalCode(user.getPersonalCode().stripTrailing().stripLeading());
-        user.setSurname(user.getSurname().stripTrailing().stripLeading());
-        user.setName(user.getName().stripTrailing().stripLeading());
-        user.setEmail(user.getEmail().stripTrailing().stripLeading());
-        user.setPassword(user.getPassword().stripTrailing().stripLeading());
+        if(user.getUsername() != null) user.setUsername(user.getUsername().stripTrailing().stripLeading());
+        if(user.getPersonalCode() != null) user.setPersonalCode(user.getPersonalCode().stripTrailing().stripLeading());
+        if(user.getSurname() != null) user.setSurname(user.getSurname().stripTrailing().stripLeading());
+        if(user.getName() != null) user.setName(user.getName().stripTrailing().stripLeading());
+        if(user.getEmail() != null) user.setEmail(user.getEmail().stripTrailing().stripLeading());
+        if(user.getPassword() != null) user.setPassword(user.getPassword().stripTrailing().stripLeading());
         return user;
     }
 
