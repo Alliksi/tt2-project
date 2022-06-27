@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>ProductMe</title>
+    <div th:replace="fragments/includes"></div>
+</head>
+<body>
+<div th:replace="fragments/navbar"></div>
+<div class="main">
+    <div th:if="${storage == null}">
+        <h2 th:text="'Failed to find the given storage.'"></h2>
+    </div>
+    <div th:unless="${storage == null}">
+        <div sec:authorize="hasRole('ROLE_OWNER')">
+            <form th:action="@{/owners/storages/update/{storageId}(storageId = ${storage.storageId})}" method="post" th:object="${storage}">
+                <div class="mb-3">
+                    <label class="control-label" for="name">Name:</label>
+                    <input id="name" class="form-control" th:field="*{name}">
+                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                </div>
+                <div class="mb-3">
+                    <label class="control-label" for="size">Size:</label>
+                    <input id="size" class="form-control" th:field="*{size}">
+                    <p th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></p>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-success">Save storage information</button>
+                    <a class="btn btn-danger float-right"
+                       th:href="@{/owners/storages/delete/{storageId}(storageId = ${storage.storageId})}">Delete storage</a>
+                </div>
+            </form>
+        </div>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <form th:action="@{/admins/storages/update/{storageId}(storageId = ${storage.storageId})}" method="post" th:object="${storage}">
+                <div class="mb-3">
+                    <label class="control-label" for="name">Name:</label>
+                    <input id="name" class="form-control" th:field="*{name}">
+                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                </div>
+                <div class="mb-3">
+                    <label class="control-label" for="size">Size:</label>
+                    <input id="size" class="form-control" th:field="*{size}">
+                    <p th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></p>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-success">Save storage information</button>
+                    <a class="btn btn-danger float-right"
+                       th:href="@{/admins/storages/delete/{storageId}(storageId = ${storage.storageId})}">Delete storage</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer"></div>
+</body>
+</html>

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,13 +31,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/","/index","/login","/login-error","/register-company", "/error", "/js/**", "/css/**").permitAll()
+                    .antMatchers("/","/index","/login","/login-error","/register-company", "/error", "/js/**").permitAll()
                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                     .and().authorizeRequests().antMatchers("/profile/**").authenticated()
-                    .and().authorizeRequests().antMatchers("/admins/**").access("hasRole('ROLE_ADMIN')")
-                    .and().authorizeRequests().antMatchers("/workers/**").access("hasRole('ROLE_WORKER')")
-                    .and().authorizeRequests().antMatchers("/**").access("hasRole('ROLE_OWNER')")
-                    .and()
+                    .and().authorizeRequests().antMatchers("/workers/**").hasRole("WORKER")
+                    .and().authorizeRequests().antMatchers("/admins/**").hasRole("ADMIN")
+                    .and().authorizeRequests().antMatchers("/**","/storages**").hasRole("OWNER")
+                .and()
                 .formLogin()
                     .loginPage("/login")
                     .failureUrl("/login?wrong")

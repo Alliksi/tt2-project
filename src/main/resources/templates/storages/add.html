@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>ProductMe</title>
+    <div th:replace="fragments/includes"></div>
+</head>
+<body>
+<div th:replace="fragments/navbar"></div>
+<div class="main">
+    <div th:if="${restaurant !=null}">
+        <div sec:authorize="hasRole('ROLE_OWNER')">
+            <form sec:authorize="hasRole('ROLE_OWNER')" th:action="@{/owners/storages/add/{restaurantId}(restaurantId = ${restaurant.id})}" th:object="${storage}" method="POST" enctype="utf8">
+                <h3>Information about the storage: </h3>
+                <div>
+                    <label>Storage name:</label>
+                    <input th:field="*{name}" required/>
+                    <p th:each="error : ${#fields.errors('name')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div>
+                    <label>Storage size:</label>
+                    <input th:field="*{size}" type="number" step="0.01" required/>
+                    <p th:each="error : ${#fields.errors('size')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <button type="submit">Add storage</button>
+            </form>
+        </div>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{/admins/storages/add/{restaurantId}(restaurantId = ${restaurant.id})}" th:object="${storage}" method="POST" enctype="utf8">
+                <h3>Information about the storage: </h3>
+                <div>
+                    <label>Storage name:</label>
+                    <input th:field="*{name}" required/>
+                    <p th:each="error : ${#fields.errors('name')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div>
+                    <label>Storage size:</label>
+                    <input th:field="*{size}" type="number" step="0.01" required/>
+                    <p th:each="error : ${#fields.errors('size')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <button type="submit">Add storage</button>
+            </form>
+        </div>
+    </div>
+    <div th:if="${restaurants != null}">
+        <form th:action="@{/owners/storages/add/choose}" th:object="${storage}" method="POST" enctype="utf8">
+            <h3>Information about the storage: </h3>
+            <div>
+                <label>Storage name:</label>
+                <input th:field="*{name}" required/>
+                <p th:each="error : ${#fields.errors('name')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div>
+                <label>Storage size:</label>
+                <input th:field="*{size}" type="number" step="0.01"  required/>
+                <p th:each="error : ${#fields.errors('size')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div th:if="${restaurants != null}">
+                <div class="form-group">
+                    <label class="control-label">Restaurant:</label>
+                    <select required th:field="*{restaurantId}" multiple class="selectpicker" data-live-search="true">
+                        <option th:each="availableRestaurant : ${restaurants}" th:value="${availableRestaurant.id}"
+                                th:text="${availableRestaurant.name + ' ' + availableRestaurant.registrationNumber}"></option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit">Add storage</button>
+        </form>
+    </div>
+</div>
+<div th:replace="fragments/footer"></div>
+</body>
+
+</html>
