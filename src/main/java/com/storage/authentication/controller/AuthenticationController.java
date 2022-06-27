@@ -55,22 +55,50 @@ public class AuthenticationController {
             return "authentication/register_company";
         }
         try {
-            var alreadyExists = false;
+            var errorFound = false;
+
+            if(registrationDto.getPassword().length() < 6){
+                model.addAttribute("errorPassword", "Password must be at least 6 characters long!");
+                errorFound = true;
+            }
+            if(registrationDto.getPersonalCode().length() != 11){
+                model.addAttribute("errorPersonalCode", "Personal code must be 11 characters long!");
+                errorFound = true;
+            }
+            if(!registrationDto.getPersonalCode().matches("[0-9]+")){
+                model.addAttribute("errorPersonalCode", "Personal code must be numeric!");
+                errorFound = true;
+            }
+            if(registrationDto.getRegistrationNumber().length() != 11){
+                model.addAttribute("errorRegistrationNumber", "Registration number must be 11 characters long!");
+                errorFound = true;
+            }
+            if(!registrationDto.getRegistrationNumber().matches("[0-9]+")){
+                model.addAttribute("errorRegistrationNumber", "Registration number must be numeric!");
+                errorFound = true;
+            }
+            if(registrationDto.getUsername().length() < 6){
+                model.addAttribute("errorUsername", "Username must be at least 6 characters long!");
+                errorFound = true;
+            }
+
             if(_userService.checkIfUserExistsByPersonalCode(registrationDto.getPersonalCode())){
                 model.addAttribute("errorPersonalCode", "Personal code already taken!");
-                alreadyExists = true;
+                errorFound = true;
             }
 
             if(_companyService.checkIfCompanyExistsByRegistrationNumber(registrationDto.getRegistrationNumber())){
                 model.addAttribute("errorRegistrationNumber", "Registration number already taken!");
-                alreadyExists = true;
+                errorFound = true;
             }
 
             if(_userService.checkIfUserExistsByUsername(registrationDto.getUsername())){
                 model.addAttribute("errorUsername", "Username already taken!");
-                alreadyExists = true;
+                errorFound = true;
             }
-            if (alreadyExists) return "authentication/register_company";
+
+            if (errorFound) return "authentication/register_company";
+
             User registeredUser = _userService.registerNewUser(registrationDto, "ROLE_OWNER");
 
             Company registeredCompany = _companyService.registerNewCompany(registrationDto, registeredUser);

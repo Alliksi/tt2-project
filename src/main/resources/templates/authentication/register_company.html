@@ -64,6 +64,7 @@
                                type="password" th:field="*{password}" required/>
                         <p th:each="error : ${#fields.errors('password')}"
                            th:text="${error}">Validation error</p>
+                        <p class="errorMessage" th:text="${errorPassword}"></p>
                     </div>
                     <div class="mb-3">
                         <label for="passwordAgain">Password again:</label>
