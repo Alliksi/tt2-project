@@ -56,6 +56,9 @@ public class AuthenticationController {
         }
         try {
             var errorFound = false;
+            registrationDto.setPassword(registrationDto.getPassword().stripLeading().stripTrailing());
+            registrationDto.setMatchingPassword(registrationDto.getMatchingPassword().stripLeading().stripTrailing());
+            registrationDto.setUsername(registrationDto.getUsername().stripLeading().stripTrailing());
             if(registrationDto.getPassword().length() < 6){
                 model.addAttribute("errorPassword", "register.error.passwordTooShort");
                 errorFound = true;

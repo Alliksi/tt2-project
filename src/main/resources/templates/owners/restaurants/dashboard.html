@@ -8,7 +8,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>Restaurant dashboard</title>
+    <title>ProductMe</title>
     <div th:replace="fragments/includes"></div>
 </head>
 <body>
@@ -24,6 +24,7 @@
                 <th scope="col">Restaurant name</th>
                 <th scope="col">Registration number</th>
                 <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -32,12 +33,15 @@
                 <td th:text="${restaurant.name}"></td>
                 <td th:text="${restaurant.registrationNumber}"></td>
                 <td>
+                    <a class="btn btn-primary" th:href="@{/owners/restaurants/storages/{restaurantId}(restaurantId = ${restaurant.id})}">See storages</a>
+                </td>
+                <td>
                     <a class="btn btn-primary" th:href="@{/owners/restaurants/edit/{restaurantId}(restaurantId = ${restaurant.id})}">Edit</a>
                 </td>
             </tr>
             </tbody>
         </table>
-        <div th:if="${restaurants.size() == 0}"><h3 class="container-title">There are no restaurants here!</h3></div>
+        <div th:if="${restaurants.size() == 0}"><h3 class="container-title">You do not have restaurants registered</h3></div>
     </div>
 </div>
 

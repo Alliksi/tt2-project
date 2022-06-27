@@ -47,11 +47,13 @@ public class UserService implements IUserService{
         user.setEnabled(true);
         user.setRoles(roles);
         user.setPicture(null);
+        user = stripUserFields(user);
         return _userRepository.save(user);
     }
 
     @Override
     public User registerNewUser(User user) throws UserAlreadyExistsException{
+        user = stripUserFields(user);
         if (checkIfUserExistsByPersonalCode(user.getPersonalCode())) {
             throw new UserAlreadyExistsException("An employee with personal code "
                     + user.getPersonalCode() +" already exists in our database.");
@@ -92,7 +94,7 @@ public class UserService implements IUserService{
     }
 
     public User updateUser(User user, Integer userToUpdateId) {
-
+        user = stripUserFields(user);
         User userToUpdate = _userRepository.findById(userToUpdateId).orElse(null);
         if(userToUpdate != null) {
             if(user.getName() != null && user.getName() != "") {
@@ -157,6 +159,16 @@ public class UserService implements IUserService{
             return _userRepository.save(user);
         }
         return null;
+    }
+
+    private User stripUserFields(User user){
+        user.setUsername(user.getUsername().stripTrailing().stripLeading());
+        user.setPersonalCode(user.getPersonalCode().stripTrailing().stripLeading());
+        user.setSurname(user.getSurname().stripTrailing().stripLeading());
+        user.setName(user.getName().stripTrailing().stripLeading());
+        user.setEmail(user.getEmail().stripTrailing().stripLeading());
+        user.setPassword(user.getPassword().stripTrailing().stripLeading());
+        return user;
     }
 
 }

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IShelfService {
     List<Shelf> getAll();
+
+    Shelf deleteShelfById(Integer shelfId);
 }
