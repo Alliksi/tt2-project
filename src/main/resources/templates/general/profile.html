@@ -14,7 +14,6 @@
 <body>
 <div th:replace="fragments/navbar"></div>
 <div class="main">
-    <h4>After any changes made, you will be logged out. Please re-login.</h4>
     <div th:if="${user == null}">
         <h2 th:text="'Failed to find information about the profile.'"></h2>
     </div>
@@ -27,6 +26,7 @@
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-success">Save picture</button>
+                <p class="infoText">After any changes made, you will be logged out. Please re-login.</p>
             </div>
         </form>
 
@@ -34,30 +34,53 @@
         <form th:action="@{/profile/information/update}" method="post" th:object="${user}">
             <div class="mb-3">
                 <label class="control-label" for="username">Username:</label>
-                <input id="username" class="form-control" th:field="*{username}">
+                <input id="username" class="form-control" th:field="*{username}" th:placeholder="*{username}">
                 <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+                <p class="errorMessage" th:text="${errorUsername}"></p>
             </div>
             <div class="mb-3">
-            <label class="control-label" for="newPassword">Password: (leave blank, if you do not want to update)</label>
-            <input id="newPassword" class="form-control"  type="password"  th:object="${newPassword}" th:field="*{password}">
+                <label class="control-label" for="newPassword">Password: (leave blank, if you do not want to update)</label>
+                <input id="newPassword" class="form-control"  type="password"  th:object="${newPassword}" th:field="*{password}">
+                <p class="errorMessage" th:text="${errorPassword}"></p>
+            </div>
             <div class="mb-3">
                 <label class="control-label" for="passwordMatches">Enter password again:</label>
                 <input id="passwordMatches" class="form-control"  type="password"  th:object="${newPassword}" th:field="*{confirmPassword}">
             </div>
             <div class="mb-3">
                 <label class="control-label" for="email">Email:</label>
-                <input id="email" class="form-control" th:field="*{email}">
+                <input id="email" class="form-control" th:field="*{email}" th:placeholder="*{email}">
                 <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+                <p class="errorMessage" th:text="${errorEmail}"></p>
             </div>
             <div class="mb-3">
                 <button type="submit" class="btn btn-success">Save updates</button>
-                <a class="btn btn-danger float-right"
-                   th:href="@{/profile/disable/{userId}(userId = ${user.id})}">Disable your account</a>
+                <a id="disabledAccountBtn" class="btn btn-danger">Disable your account</a>
+                <p class="infoText">After any changes made, you will be logged out. Please re-login.</p>
+                <div id="disabledAccountPopup" class="modal">
+                    <div class="modal-content">
+                        <h2>Do you really want to disable your account?</h2><hr>
+                        <a class="btn btn-danger mb-3"
+                           th:href="@{/profile/disable/{userId}(userId = ${user.id})}">Disable</a>
+                        <a class="btn btn-secondary close">Cancel</a>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
 </div>
 <div th:replace="fragments/footer"></div>
 </body>
+<script>
+    var modal = document.getElementById("disabledAccountPopup");
+    var btn = document.getElementById("disabledAccountBtn");
+    var span = document.getElementsByClassName("close")[0];
 
+    btn.onclick = function() {   modal.style.display = "block"; }
+    span.onclick = function() {   modal.style.display = "none"; }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        } }
+</script>
 </html>

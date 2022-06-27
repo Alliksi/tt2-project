@@ -19,7 +19,7 @@
             <h1><b>ProductMe</b></h1>
             <hr>
             <div th:if="${param.wrong != null}">
-                Invalid username or password!
+                <p class="errorMessage">Invalid username or password!</p>
             </div>
             <form th:action="@{/login}" method="post">
                 <div>
