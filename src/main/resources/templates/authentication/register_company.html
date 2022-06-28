@@ -88,7 +88,7 @@
                        th:text="${error}">Validation error</p>
                     <p class="errorMessage" th:text="(${errorRegistrationNumber} == null ? '' : #{${errorRegistrationNumber}})"></p>
                 </div>
-                <button class="btn btn-secondary" type="submit" th:text="#{register}">Register!</button>
+                <button class="btn btn-secondary mb-2" type="submit" th:text="#{register}">Register!</button>
             </form>
             <i><span th:text="#{alreadyRegistered}"></span>? <a href="../login" th:text="#{signin}"></a></i>
         </div>

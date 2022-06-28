@@ -5,7 +5,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Transient;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -27,9 +26,9 @@ public class MyUserDetails implements UserDetails {
                 .collect(Collectors.toList());
 
         if (user.getPicture() == null || user.getId() == null) {
-            this.picture = "/user-photos/blank_profile_picture.png";
+            this.picture = "/public/user-photos/blank_profile_picture.png";
         } else {
-            this.picture = "/user-photos/" + user.getId() + "/" + user.getPicture();
+            this.picture = "/public/user-photos/" + user.getId() + "/" + user.getPicture();
         }
     }
 

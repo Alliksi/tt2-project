@@ -43,7 +43,7 @@ public class StorageApplication implements WebMvcConfigurer {
 		interceptorRegistry.addInterceptor(localeChangeInterceptor());
 	}
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		exposeDirectory("user-photos", registry);
+		exposeDirectory("/public/user-photos/", registry);
 	}
 
 	private void exposeDirectory(String dirName, ResourceHandlerRegistry registry) {

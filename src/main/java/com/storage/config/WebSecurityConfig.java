@@ -31,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/","/index","/login","/login-error","/register-company", "/error", "/js/**").permitAll()
+                    .antMatchers("/","/index","/login","/login-error","/register-company", "/error", "/js/**", "/favicon.ico", "/css/**", "/images/**", "/public/**").permitAll()
                     .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                     .and().authorizeRequests().antMatchers("/profile/**").authenticated()
                     .and().authorizeRequests().antMatchers("/workers/**").hasRole("WORKER")

@@ -38,7 +38,7 @@ public class DatabaseLoggerService implements IDatabaseLoggerService {
         Log log = new Log();
         log.setCreated(new Timestamp(System.currentTimeMillis()));
         log.setMessage(message);
-        log.setUserId(_userService.getUserByUsername(principal.getName()).getId());
+        if (principal != null && principal.getName() != null) log.setUserId(_userService.getUserByUsername(principal.getName()).getId());
         if (status != null) log.setStatus(status);
         if (restaurantId == 0) log.setRestaurantId(null);
         else log.setRestaurantId(restaurantId);

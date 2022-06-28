@@ -35,4 +35,4 @@ build/
 *.bak
 
 ### Profile pictures ###
-/user-photos/**/*
+/src/main/resources/static/public/user-photos/**/*
