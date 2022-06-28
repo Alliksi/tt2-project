@@ -99,7 +99,7 @@ public class ProfileController {
         if (!bindingResult.hasErrors() && picture != null && picture.getImage() != null) {
             String fileName = StringUtils.cleanPath(Objects.requireNonNull(picture.getImage().getOriginalFilename()));
             User user = _userService.updatePicture(fileName, principal.getName());
-            String uploadDir = "src/main/resources/static/public/user-photos/" + user.getId();
+            String uploadDir = "src/main/resources/static/user-photos/" + user.getId();
             FileUploadUtil.saveFile(uploadDir, fileName, picture.getImage());
             return "redirect:/logout";
         }

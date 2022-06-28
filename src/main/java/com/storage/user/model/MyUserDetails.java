@@ -26,9 +26,9 @@ public class MyUserDetails implements UserDetails {
                 .collect(Collectors.toList());
 
         if (user.getPicture() == null || user.getId() == null) {
-            this.picture = "/public/user-photos/blank_profile_picture.png";
+            this.picture = "/user-photos/blank_profile_picture.png";
         } else {
-            this.picture = "/public/user-photos/" + user.getId() + "/" + user.getPicture();
+            this.picture = "/user-photos/" + user.getId() + "/" + user.getPicture();
         }
     }
 

@@ -42,16 +42,4 @@ public class StorageApplication implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry interceptorRegistry) {
 		interceptorRegistry.addInterceptor(localeChangeInterceptor());
 	}
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		exposeDirectory("/public/user-photos/", registry);
-	}
-
-	private void exposeDirectory(String dirName, ResourceHandlerRegistry registry) {
-		Path uploadDir = Paths.get(dirName);
-		String uploadPath = uploadDir.toFile().getAbsolutePath();
-
-		if (dirName.startsWith("../")) dirName = dirName.replace("../", "");
-
-		registry.addResourceHandler("/" + dirName + "/**").addResourceLocations("file:/"+ uploadPath + "/");
-	}
 }
