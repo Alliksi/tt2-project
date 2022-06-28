@@ -1,12 +1,8 @@
 package com.storage.storage.domain;
 
-import com.storage.shelf.domain.Shelf;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.LinkedHashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "storages", schema = "public", catalog = "restaurant-storage")

@@ -1,22 +1,13 @@
 package com.storage.restaurant.controller;
 
 
-import com.storage.authentication.dto.CompanyRegistrationDto;
 import com.storage.company.domain.Company;
-import com.storage.company.service.CompanyService;
 import com.storage.company.service.ICompanyService;
 import com.storage.logger.database.service.IDatabaseLoggerService;
-import com.storage.product.domain.Product;
 import com.storage.restaurant.domain.Restaurant;
 import com.storage.restaurant.service.IRestaurantService;
-import com.storage.restaurant.service.RestaurantService;
 import com.storage.user.domain.User;
 import com.storage.user.service.IUserService;
-import com.storage.user.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

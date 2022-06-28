@@ -1,21 +1,15 @@
 package com.storage.logger.database.service;
 
-import com.storage.company.service.CompanyService;
 import com.storage.company.service.ICompanyService;
 import com.storage.logger.database.domain.Log;
 import com.storage.logger.database.repository.LogRepository;
-import com.storage.restaurant.service.IRestaurantService;
 import com.storage.user.domain.User;
 import com.storage.user.service.IUserService;
-import com.storage.user.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
 import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.List;

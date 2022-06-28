@@ -1,7 +1,6 @@
 package com.storage.user.service;
 
 import com.storage.authentication.dto.CompanyRegistrationDto;
-import com.storage.company.domain.Company;
 import com.storage.general.exception.UserAlreadyExistsException;
 import com.storage.user.domain.User;
 

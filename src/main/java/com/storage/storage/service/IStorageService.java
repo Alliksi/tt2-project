@@ -1,6 +1,5 @@
 package com.storage.storage.service;
 
-import com.storage.restaurant.domain.Restaurant;
 import com.storage.storage.domain.Storage;
 
 import java.util.List;

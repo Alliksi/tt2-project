@@ -1,7 +1,6 @@
 package com.storage.storage.controller;
 
 
-import com.storage.company.domain.Company;
 import com.storage.company.service.ICompanyService;
 import com.storage.restaurant.domain.Restaurant;
 import com.storage.restaurant.service.IRestaurantService;
@@ -11,7 +10,6 @@ import com.storage.user.domain.User;
 import com.storage.user.service.IUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;

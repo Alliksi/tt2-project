@@ -2,7 +2,6 @@ package com.storage.shelf.service;
 
 import com.storage.shelf.domain.Shelf;
 import com.storage.shelf.repository.ShelfRepository;
-import com.storage.storage.domain.Storage;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,8 +1,6 @@
 package com.storage.shelf.controller;
 
 import com.storage.company.service.ICompanyService;
-import com.storage.product.domain.Product;
-import com.storage.product.service.IProductService;
 import com.storage.restaurant.domain.Restaurant;
 import com.storage.restaurant.service.IRestaurantService;
 import com.storage.shelf.domain.Shelf;

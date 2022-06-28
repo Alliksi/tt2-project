@@ -1,9 +1,7 @@
 package com.storage.user.service;
 
 import com.storage.authentication.dto.CompanyRegistrationDto;
-import com.storage.company.domain.Company;
 import com.storage.general.exception.UserAlreadyExistsException;
-import com.storage.restaurant.domain.Restaurant;
 import com.storage.user.domain.User;
 import com.storage.user.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,14 +9,13 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Transactional
 public class UserService implements IUserService{
 
     private final UserRepository _userRepository;
-    private PasswordEncoder _passwordEncoder;
+    private final PasswordEncoder _passwordEncoder;
 
     public UserService(UserRepository _userRepository, PasswordEncoder passwordEncoder) {
         this._userRepository = _userRepository;

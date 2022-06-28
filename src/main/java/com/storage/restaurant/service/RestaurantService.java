@@ -3,7 +3,6 @@ package com.storage.restaurant.service;
 
 import com.storage.restaurant.domain.Restaurant;
 import com.storage.restaurant.repository.RestaurantRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

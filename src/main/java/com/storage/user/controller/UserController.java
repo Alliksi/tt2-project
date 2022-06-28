@@ -11,7 +11,6 @@ import com.storage.restaurant.service.IRestaurantService;
 import com.storage.user.domain.User;
 import com.storage.user.dto.NewPasswordDto;
 import com.storage.user.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

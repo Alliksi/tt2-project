@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
-import java.security.Principal;
 
 
 @Controller
@@ -109,7 +108,7 @@ public class AuthenticationController {
         catch(Exception ex){
             System.err.println(ex);
             model.addAttribute("info", ex.toString());
-            logger.error("Error while registering new company: " + ex.toString());
+            logger.error("Error while registering new company: " + ex);
             return "authentication/register_company";
         }
         model.addAttribute("success", "User created. Please log in.");

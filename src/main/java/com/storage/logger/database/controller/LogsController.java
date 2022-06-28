@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.awt.print.Book;
 import java.security.Principal;
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class LogsController {
         Page<Log> page = _databaseLoggerService.searchForLogs(message, pageNumber);
         List<Log> logs = page.getContent();
         model.addAttribute("logs", logs);
-        model.addAttribute("message", new String());
+        model.addAttribute("message", "");
         model.addAttribute("currentPage", pageNumber);
         model.addAttribute("totalPages", page.getTotalPages());
 

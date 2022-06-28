@@ -1,14 +1,10 @@
 package com.storage.user.domain;
 
-import com.storage.company.domain.Company;
-import com.storage.delivery.domain.Delivery;
 import com.storage.restaurant.domain.Restaurant;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")

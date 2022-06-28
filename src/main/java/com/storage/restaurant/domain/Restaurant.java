@@ -1,11 +1,8 @@
 package com.storage.restaurant.domain;
 
 import com.storage.company.domain.Company;
-import com.storage.storage.domain.Storage;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "restaurants")

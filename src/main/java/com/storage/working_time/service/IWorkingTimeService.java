@@ -1,6 +1,5 @@
 package com.storage.working_time.service;
 
-import com.storage.product.domain.Product;
 import com.storage.working_time.domain.WorkingTime;
 
 import java.util.List;

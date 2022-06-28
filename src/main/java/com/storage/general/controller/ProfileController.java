@@ -12,13 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -101,7 +99,7 @@ public class ProfileController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             return "redirect:/index";
         } catch (Exception e) {
-            logger.error("Error updating profile: " + e.toString(), principal);
+            logger.error("Error updating profile: " + e, principal);
             return "redirect:/index";
         }
     }
@@ -130,14 +128,14 @@ public class ProfileController {
         catch(FileSizeLimitExceededException ex){
             model.addAttribute("errorPicture", "Picture size must be less than 512KB");
             System.err.println(ex);
-            logger.error("Error updating profile picture: " + ex.toString(), principal);
+            logger.error("Error updating profile picture: " + ex, principal);
             return "redirect:/profile";
         }
         catch(Exception ex){
             model.addAttribute("errorPicture", "Error uploading picture!");
             System.err.println(ex);
             model.addAttribute("info", ex.toString());
-            logger.error("Error updating profile picture: " + ex.toString(), principal);
+            logger.error("Error updating profile picture: " + ex, principal);
             return "redirect:/profile";
         }
         return "redirect:/profile";
@@ -156,10 +154,7 @@ public class ProfileController {
         try {
             long bytes = file.getBytes().length;
             System.out.println(String.format("%,d kilobytes", bytes / 1024));
-            if (bytes /(1024) > size) {
-                return true;
-            }
-            return false;
+            return bytes / (1024) > size;
 
         } catch (IOException e) {
             return true;
