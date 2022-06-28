@@ -16,8 +16,8 @@ public class ShelfService implements IShelfService {
     }
 
     @Override
-    public List<Shelf> getAll() {
-        return _shelfRepository.findAll();
+    public List<Shelf> getAllByStorageId(Integer storageId) {
+        return _shelfRepository.findAllByStorageId(storageId);
     }
 
     @Override

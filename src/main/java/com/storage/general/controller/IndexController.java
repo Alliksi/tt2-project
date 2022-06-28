@@ -11,6 +11,7 @@ public class IndexController {
     public String redirectToIndexView() {
         return "redirect:/";
     }
+
     @GetMapping(value={"/"})
     public String showIndexView() {
         return "general/index";

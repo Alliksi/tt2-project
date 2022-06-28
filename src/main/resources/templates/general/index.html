@@ -22,9 +22,15 @@
         </div>
     </div>
 </div>
+
 <div sec:authorize="isAuthenticated()">
+    <div class="d-flex justify-content-center">
+        <div class="container bg-light login">
+            <h3 th:text="'Welcome to ProductMe! Use the navigation up top to use our product.'"></h3>
+        </div>
+    </div>
 </div>
-</div>
+
 <div th:replace="fragments/footer"></div>
 </body>
 </html>
