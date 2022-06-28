@@ -67,7 +67,6 @@ public class ShelfController {
 
     @GetMapping(value={"/owners/shelves/add/choose","/admins/shelves/add/choose"})
     public String addNewShelf(Principal principal, Model model) {
-        System.out.println("admin shelf view");
         User user = _userService.getUserByUsername(principal.getName());
         List<Storage> storages = new ArrayList<>();
         if (user.getRoles().equals("ROLE_OWNER")) {
@@ -80,7 +79,7 @@ public class ShelfController {
         }
         model.addAttribute("shelf", new Shelf());
         model.addAttribute("storages", storages);
-        return "shelves/add";
+        return "/shelves/add";
     }
 
     @PostMapping(value = {"/owners/shelves/add/choose","/admins/shelves/add/choose"})
