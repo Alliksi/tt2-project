@@ -136,3 +136,13 @@ body {
     height: 80px;
     border-radius: 20px;
 }
+#homePageLogo {
+    height: 30rem;
+    width: auto;
+}
+.homePageWelcome {
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 2px 2px #30404b;
+    margin-top: 40px;
+}

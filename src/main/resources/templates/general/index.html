@@ -24,9 +24,18 @@
 </div>
 
 <div sec:authorize="isAuthenticated()">
-    <div class="d-flex justify-content-center">
-        <div class="container bg-light login">
-            <h3 th:text="'Welcome to ProductMe! Use the navigation up top to use our product.'"></h3>
+    <div class="main">
+        <div class="col">
+            <div class="row d-flex justify-content-center  text-center">
+                <h2 class="homePageWelcome" th:text="#{homePage.welcome}"></h2><br>
+                <h2 class="homePageWelcome" th:text="#{homePage.info}"></h2>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <img id="homePageLogo" alt="" th:src="@{/images/logo_transparent.png}" />
+            </div>
+            <div class="row d-flex justify-content-center text-center">
+                <p><i><span th:text="#{homePage.contactUsEmail}"></span> @ </i><a href="mailto: productme.info@gmail.com">productme.info@gmail.com</a></p>
+            </div>
         </div>
     </div>
 </div>

@@ -19,6 +19,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -112,6 +113,10 @@ public class ProfileController {
             BindingResult bindingResult, Principal principal, Model model) throws IOException {
         try {
             if (!bindingResult.hasErrors() && picture != null && picture.getImage() != null) {
+                if (!fileSizeKBTooLarge(picture.getImage(), 512)) {
+                    model.addAttribute("errorPicture", "Picture size must be less than 512KB");
+                    return "redirect:/profile";
+                }
                 String fileName = StringUtils.cleanPath(Objects.requireNonNull(picture.getImage().getOriginalFilename()));
                 User user = _userService.updatePicture(fileName, principal.getName());
                 String uploadDir = "src/main/resources/static/user-photos/" + user.getId();
@@ -122,13 +127,14 @@ public class ProfileController {
                 return "redirect:/index";
             }
         }
+        catch(FileSizeLimitExceededException ex){
+            model.addAttribute("errorPicture", "Picture size must be less than 512KB");
+            System.err.println(ex);
+            logger.error("Error updating profile picture: " + ex.toString(), principal);
+            return "redirect:/profile";
+        }
         catch(Exception ex){
-            if (ex instanceof FileSizeLimitExceededException){
-                model.addAttribute("errorPicture", "Picture is too big!");
-            }
-            else{
-                model.addAttribute("errorPicture", "Error uploading picture!");
-            }
+            model.addAttribute("errorPicture", "Error uploading picture!");
             System.err.println(ex);
             model.addAttribute("info", ex.toString());
             logger.error("Error updating profile picture: " + ex.toString(), principal);
@@ -146,5 +152,18 @@ public class ProfileController {
         _userService.disableUser(userToDisableId);
         return "redirect:/logout";
     }
+    public static boolean fileSizeKBTooLarge(MultipartFile file, Integer size) {
+        try {
+            long bytes = file.getBytes().length;
+            System.out.println(String.format("%,d kilobytes", bytes / 1024));
+            if (bytes /(1024) > size) {
+                return true;
+            }
+            return false;
 
+        } catch (IOException e) {
+            return true;
+        }
+
+    }
 }
