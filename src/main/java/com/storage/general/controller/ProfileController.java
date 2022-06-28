@@ -111,7 +111,7 @@ public class ProfileController {
             BindingResult bindingResult, Principal principal, Model model) throws IOException {
         try {
             if (!bindingResult.hasErrors() && picture != null && picture.getImage() != null) {
-                if (!fileSizeKBTooLarge(picture.getImage(), 512)) {
+                if (fileSizeKBTooLarge(picture.getImage(), 512)) {
                     model.addAttribute("errorPicture", "Picture size must be less than 512KB");
                     return "redirect:/profile";
                 }

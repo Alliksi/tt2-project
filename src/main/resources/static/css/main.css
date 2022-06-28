@@ -61,6 +61,8 @@ body {
     opacity: 90%;
 }
 .lang {
+    margin-right: 20px;
+    margin-left: 20px;
     display: flex;
     justify-content: center;
 }
