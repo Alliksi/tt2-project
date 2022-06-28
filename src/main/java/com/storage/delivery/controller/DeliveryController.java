@@ -1,5 +1,6 @@
 package com.storage.delivery.controller;
 
+import com.storage.delivery.service.IDeliveryService;
 import com.storage.product.domain.Product;
 import com.storage.product.service.IProductService;
 import org.springframework.stereotype.Controller;
@@ -11,21 +12,11 @@ import java.util.List;
 @Controller
 public class DeliveryController {
 
-    private final IProductService _productService;
+    private final IDeliveryService _deliveryService;
 
-    public DeliveryController(IProductService productService) {
-        this._productService = productService;
+    public DeliveryController(IDeliveryService deliveryService) {
+        this._deliveryService = deliveryService;
     }
 
-    //@GetMapping("/products/list")
-    public String listAll(Model model) {
-        List<Product> productList = _productService.getAll();
-        model.addAttribute("products", productList);
-        return "/products/list";
-    }
-//    @GetMapping("/add")
-//    public String listAll() {
-//        List<Product> productList = productService.getAll();
-//        return "products/list";
-//    }
+
 }

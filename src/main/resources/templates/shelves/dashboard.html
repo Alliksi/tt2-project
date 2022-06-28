@@ -28,6 +28,7 @@
                     <th scope="col">Type</th>
                     <th scope="col">Allocated space</th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,6 +37,15 @@
                     <td th:text="${shelf.name}"></td>
                     <td th:text="${shelf.storageType}"></td>
                     <td th:text="${shelf.allocatedSpace}"></td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="btn btn-primary" th:href="@{/admins/products/add/{shelfId}(shelfId = ${shelf.shelfId})}">Add product</a>
+                    </td>
+                    <td sec:authorize="hasRole('ROLE_OWNER')">
+                        <a class="btn btn-primary" th:href="@{/owners/products/add/{shelfId}(shelfId = ${shelf.shelfId})}">Add product</a>
+                    </td>
+                    <td sec:authorize="hasRole('ROLE_WORKER')">
+                        <a class="btn btn-primary" th:href="@{/workers/products/add/{shelfId}(shelfId = ${shelf.shelfId})}">Add product</a>
+                    </td>
                     <td sec:authorize="hasRole('ROLE_ADMIN')">
                         <a class="btn btn-primary" th:href="@{/admins/shelves/edit/{shelfId}(shelfId = ${shelf.shelfId})}">Edit</a>
                     </td>

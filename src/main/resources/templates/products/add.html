@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>ProductMe</title>
+    <div th:replace="fragments/includes"></div>
+</head>
+<body>
+<div th:replace="fragments/navbar"></div>
+<div class="main">
+    <div th:if="${product != null}">
+        <div sec:authorize="hasRole('ROLE_OWNER')">
+            <form th:action="@{/owners/products/add/{shelfId}(shelfId = ${shelf.shelfId})}" th:object="${product}" method="POST" enctype="utf8">
+                <h3>Information about the product: </h3>
+                <div>
+                    <label>Product name:</label>
+                    <input th:field="*{name}" required/>
+                    <p th:each="error : ${#fields.errors('name')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div>
+                    <label>Date of expiry:</label>
+                    <input th:field="*{dateOfExpiry}" type="date" required/>
+                    <p th:each="error : ${#fields.errors('dateOfExpiry')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div>
+                    <label>Amount left:</label>
+                    <input th:field="*{amountLeft}" required/>
+                    <p th:each="error : ${#fields.errors('amountLeft')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+
+                <button type="submit">Add product</button>
+            </form>
+        </div>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <form th:action="@{/admins/products/add/{shelfId}(shelfId = ${shelf.shelfId})}" th:object="${product}" method="POST" enctype="utf8">
+                <h3>Information about the product: </h3>
+                <div>
+                    <label>Product name:</label>
+                    <input th:field="*{name}" required/>
+                    <p th:each="error : ${#fields.errors('name')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div>
+                    <label>Date of expiry:</label>
+                    <input th:field="*{dateOfExpiry}" type="date" required/>
+                    <p th:each="error : ${#fields.errors('dateOfExpiry')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div>
+                    <label>Amount left:</label>
+                    <input th:field="*{amountLeft}" required/>
+                    <p th:each="error : ${#fields.errors('amountLeft')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+
+                <button type="submit">Add product</button>
+            </form>
+        </div>
+        <div sec:authorize="hasRole('ROLE_WORKER')">
+            <form th:action="@{/workers/products/add/{shelfId}(shelfId = ${shelf.shelfId})}" th:object="${product}" method="POST" enctype="utf8">
+                <h3>Information about the product: </h3>
+                <div>
+                    <label>Product name:</label>
+                    <input th:field="*{name}" required/>
+                    <p th:each="error : ${#fields.errors('name')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div>
+                    <label>Date of expiry:</label>
+                    <input th:field="*{dateOfExpiry}" type="date" required/>
+                    <p th:each="error : ${#fields.errors('dateOfExpiry')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div>
+                    <label>Amount left:</label>
+                    <input th:field="*{amountLeft}" required/>
+                    <p th:each="error : ${#fields.errors('amountLeft')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+
+                <button type="submit">Add product</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer"></div>
+</body>
+</html>
