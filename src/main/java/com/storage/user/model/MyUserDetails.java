@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 public class MyUserDetails implements UserDetails {
     private String userName;
+    private Integer userId;
     private String password;
     private boolean active;
     private List<GrantedAuthority> authorities;
@@ -21,6 +22,7 @@ public class MyUserDetails implements UserDetails {
         this.userName = user.getUsername();
         this.password = user.getPassword();
         this.active = user.getEnabled();
+        this.userId = user.getId();
         this.authorities = Arrays.stream(user.getRoles().split(";"))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
@@ -67,6 +69,10 @@ public class MyUserDetails implements UserDetails {
         return active;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
     public String getPicture() {
         return picture;
     }
@@ -74,5 +80,4 @@ public class MyUserDetails implements UserDetails {
     public void setPicture(String picture) {
         this.picture = picture;
     }
-
 }

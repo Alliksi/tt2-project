@@ -60,10 +60,11 @@
         <form th:action="@{/profile/picture/update/(userId = ${user.id})}" method="post" enctype="multipart/form-data" th:object="${picture}">
             <div class="mb-3">
                 <label class="control-label" for="username">Photo:</label>
-                <input type="file" name="image" accept="image/png, image/jpeg" th:field="*{image}"/>
+                <input id="imageUpload" type="file" name="image" accept="image/png, image/jpeg" th:field="*{image}" required/>
+                <p class="errorMessage" th:text="${errorPicture}"></p>
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-success">Save picture</button>
+                <button id="submitPictureButton" type="submit" class="btn btn-success">Save picture</button>
             </div>
         </form>
     </div>
@@ -80,6 +81,19 @@
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
-        } }
+        } };
+    $("#submitPictureButton").disabled = true;
+    $("#imageUpload").on("change", function (e) {
+        let files = e.currentTarget.files;
+        for (let x in files) {
+            let filesize = ((files[x].size/1024)/1024).toFixed(4);
+            if (typeof files[x].name != "undefined" && filesize <= 1/2) {
+                canUpload = true;
+            } else {
+                canUpload = false;
+            }
+        }
+        $("#submitPictureButton").disabled = canUpload;
+    });
 </script>
 </html>

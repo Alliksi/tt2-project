@@ -11,4 +11,7 @@ public class PictureDto {
     public void setImage(MultipartFile image) {
         this.image = image;
     }
+    public boolean isEmpty() {
+        return image == null || image.isEmpty();
+    }
 }
