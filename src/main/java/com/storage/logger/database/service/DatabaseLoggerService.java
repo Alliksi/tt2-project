@@ -87,4 +87,10 @@ public class DatabaseLoggerService implements IDatabaseLoggerService {
     public List<Log> getAllLogs() {
         return _logRepository.findAll();
     }
+    @Override public List<Log> getAllLogsByRestaurantId(int restaurantId) {
+        return _logRepository.findAllByRestaurantId(restaurantId);
+    }
+    @Override public List<Log> getAllLogsByUserId(int userId) {
+        return _logRepository.findAllByUserId(userId);
+    }
 }

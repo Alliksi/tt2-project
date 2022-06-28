@@ -22,4 +22,6 @@ public interface IDatabaseLoggerService {
     void error(String message);
 
     List<Log> getAllLogs();
+    List<Log> getAllLogsByRestaurantId(int restaurantId);
+    List<Log> getAllLogsByUserId(int userId);
 }

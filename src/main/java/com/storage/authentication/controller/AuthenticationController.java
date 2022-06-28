@@ -104,7 +104,7 @@ public class AuthenticationController {
             User registeredUser = _userService.registerNewUser(registrationDto, "ROLE_OWNER");
 
             Company registeredCompany = _companyService.registerNewCompany(registrationDto, registeredUser);
-            logger.info("Registered with username: " + registrationDto.getUsername() + "" + " and registration number: " + registrationDto.getRegistrationNumber());
+            logger.info("Registered with username: " + registrationDto.getUsername() + "" + " and registration number: " + registrationDto.getRegistrationNumber(), null, registeredCompany.getId());
         }
         catch(Exception ex){
             System.err.println(ex);
