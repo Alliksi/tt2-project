@@ -11,7 +11,65 @@
 <body>
 <div th:replace="fragments/navbar"></div>
 <div class="main">
-
+    <div th:if="${shelf == null}">
+        <h2 th:text="'Failed to find the given storage.'"></h2>
+    </div>
+    <div th:unless="${shelf == null}">
+        <div sec:authorize="hasRole('ROLE_OWNER')">
+            <form th:action="@{/owners/shelves/update/{shelfId}(shelfId = ${shelf.shelfId})}" method="post" th:object="${shelf}">
+                <div class="mb-3">
+                    <label class="control-label" for="oName">Name:</label>
+                    <input id="oName" class="form-control" th:field="*{name}">
+                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                </div>
+                <div>
+                    <label for="oType">Storage type:</label>
+                    <select required th:field="*{storageType}" name="oType" id="oType">
+                        <option value="Freezer">Freezer</option>
+                        <option value="Refrigerator">Refrigerator</option>
+                        <option value="Normal">Normal</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="control-label" for="oSpace">Space:</label>
+                    <input id="oSpace" class="form-control" th:field="*{allocatedSpace}" type="number" step="0.01" min="1" max="500">
+                    <p th:if="${#fields.hasErrors('allocatedSpace')}" th:errors="*{allocatedSpace}"></p>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-success">Save shelf information</button>
+                    <a class="btn btn-danger float-right"
+                       th:href="@{/owners/shelves/delete/{shelfId}(shelfId = ${shelf.shelfId})}">Delete shelf</a>
+                </div>
+            </form>
+        </div>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <form th:action="@{/admins/shelves/update/{shelfId}(shelfId = ${shelf.shelfId})}" method="post" th:object="${shelf}">
+                <div class="mb-3">
+                    <label class="control-label" for="aname">Name:</label>
+                    <input id="aName" class="form-control" th:field="*{name}">
+                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                </div>
+                <div>
+                    <label for="aType">Storage type:</label>
+                    <select required th:field="*{storageType}" name="aType" id="aType">
+                        <option value="Freezer">Freezer</option>
+                        <option value="Refrigerator">Refrigerator</option>
+                        <option value="Normal">Normal</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="control-label" for="aSpace">Space:</label>
+                    <input id="aSpace" class="form-control" th:field="*{allocatedSpace}" type="number" step="0.01" min="1" max="500">
+                    <p th:if="${#fields.hasErrors('allocatedSpace')}" th:errors="*{allocatedSpace}"></p>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-success">Save shelf information</button>
+                    <a class="btn btn-danger float-right"
+                       th:href="@{/admins/shelves/delete/{shelfId}(shelfId = ${shelf.shelfId})}">Delete shelf</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 <div th:replace="fragments/footer"></div>
 </body>

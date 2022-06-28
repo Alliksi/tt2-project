@@ -15,4 +15,5 @@ public interface IStorageService {
     Storage deleteStorageById(Integer storageId);
 
     Storage updateStorage(Storage storage, Integer id);
+
 }

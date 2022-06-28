@@ -1,8 +1,5 @@
 package com.storage.storage.service;
 
-import com.storage.product.service.IProductService;
-import com.storage.restaurant.domain.Restaurant;
-import com.storage.shelf.service.IShelfService;
 import com.storage.storage.domain.Storage;
 import com.storage.storage.repository.StorageRepository;
 import org.springframework.stereotype.Service;
@@ -46,10 +43,18 @@ public class StorageService implements IStorageService {
     public Storage updateStorage(Storage storage, Integer id){
         Storage storageToUpdate = _storageRepository.findById(id).orElse(null);
         if (storageToUpdate != null) {
-            storageToUpdate.setName(storage.getName());
-            storageToUpdate.setSize(storage.getSize());
+            if(storage.getName() != null) {
+                storageToUpdate.setName(storage.getName());
+            }
+            if(storage.getRestaurantId() != null) {
+                storageToUpdate.setRestaurantId(storage.getRestaurantId());
+            }
+            if(storage.getSize() != null) {
+                storageToUpdate.setSize(storage.getSize());
+            }
             _storageRepository.save(storageToUpdate);
         }
         return storageToUpdate;
     }
+
 }

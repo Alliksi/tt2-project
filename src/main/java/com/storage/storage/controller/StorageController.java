@@ -177,7 +177,8 @@ public class StorageController {
         } else if (user.getRoles().equals("ROLE_ADMIN")) {
             return "redirect:/admins/storages";
         }
-        return "redirect:/";    }
+        return "redirect:/";
+    }
 
 
     // TODO : configure this if check and add to edit and delete, to see if the user can edit/delete the storage

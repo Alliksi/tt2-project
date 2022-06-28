@@ -11,7 +11,76 @@
 <body>
 <div th:replace="fragments/navbar"></div>
 <div class="main">
-
+    <div th:if="${storages != null}">
+        <div sec:authorize="hasRole('ROLE_OWNER')">
+            <form th:action="@{/owners/shelves/add/choose}" th:object="${shelf}" method="POST" enctype="utf8">
+                <h3>Information about the shelf: </h3>
+                <div>
+                    <label>Shelf name:</label>
+                    <input th:field="*{name}" required/>
+                    <p th:each="error : ${#fields.errors('name')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div>
+                    <label for="oType">Storage type:</label>
+                    <select required th:field="*{storageType}" name="oType" id="oType">
+                        <option value="Freezer">Freezer</option>
+                        <option value="Refrigerator">Refrigerator</option>
+                        <option value="Normal">Normal</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="control-label" for="allocatedSpace">Space:</label>
+                    <input id="allocatedSpace" class="form-control" th:field="*{allocatedSpace}" type="number" step="0.01" min="1" max="500">
+                    <p th:if="${#fields.hasErrors('allocatedSpace')}" th:errors="*{allocatedSpace}"></p>
+                </div>
+                <div th:if="${storages != null}">
+                    <div class="form-group">
+                        <label class="control-label">Storage:</label>
+                        <select required th:field="*{storageId}" multiple class="selectpicker" data-live-search="true">
+                            <option th:each="availableStorage : ${storages}" th:value="${availableStorage.storageId}"
+                                    th:text="${availableStorage.name + ' ' + availableStorage.restaurantId}"></option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit">Add shelf</button>
+            </form>
+        </div>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <form th:action="@{/admins/shelves/add/choose}" th:object="${shelf}" method="POST" enctype="utf8">
+                <h3>Information about the shelf: </h3>
+                <div>
+                    <label>Shelf name:</label>
+                    <input th:field="*{name}" required/>
+                    <p th:each="error : ${#fields.errors('name')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div>
+                    <label for="aType">Storage type:</label>
+                    <select required th:field="*{storageType}" name="aType" id="aType">
+                        <option value="Freezer">Freezer</option>
+                        <option value="Refrigerator">Refrigerator</option>
+                        <option value="Normal">Normal</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="control-label" for="aSpace">Space:</label>
+                    <input id="aSpace" class="form-control" th:field="*{allocatedSpace}" type="number" step="0.01" min="1" max="500">
+                    <p th:if="${#fields.hasErrors('allocatedSpace')}" th:errors="*{allocatedSpace}"></p>
+                </div>
+                <div th:if="${storages != null}">
+                    <div class="form-group">
+                        <label class="control-label">Storage:</label>
+                        <select required th:field="*{storageId}" multiple class="selectpicker" data-live-search="true">
+                            <option th:each="availableStorage : ${storages}" th:value="${availableStorage.storageId}"
+                                    th:text="${availableStorage.name + ' ' + availableStorage.restaurantId}"></option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit">Add shelf</button>
+            </form>
+        </div>
+    </div>
 </div>
 <div th:replace="fragments/footer"></div>
 </body>
