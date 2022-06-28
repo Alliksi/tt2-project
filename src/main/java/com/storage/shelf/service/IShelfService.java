@@ -5,7 +5,7 @@ import com.storage.shelf.domain.Shelf;
 import java.util.List;
 
 public interface IShelfService {
-    List<Shelf> getAll();
+    List<Shelf> getAllByStorageId(Integer storageId);
 
     Shelf deleteShelfById(Integer shelfId);
 }
