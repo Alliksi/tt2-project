@@ -1,6 +1,7 @@
 package com.storage.logger.database.service;
 
 import com.storage.logger.database.domain.Log;
+import org.springframework.data.domain.Page;
 
 import java.security.Principal;
 import java.util.List;
@@ -25,4 +26,6 @@ public interface IDatabaseLoggerService {
     List<Log> getAllLogsByRestaurantId(int restaurantId);
     List<Log> getAllLogsByUserId(int userId);
     List<Log> getAllLogsByCompanyId(int companyId);
+
+    Page<Log> searchForLogs(String message, int pageNumber);
 }

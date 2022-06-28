@@ -9,8 +9,13 @@ import com.storage.user.domain.User;
 import com.storage.user.service.IUserService;
 import com.storage.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.List;
@@ -119,5 +124,11 @@ public class DatabaseLoggerService implements IDatabaseLoggerService {
     @Override
     public List<Log> getAllLogsByCompanyId(int companyId) {
         return _logRepository.findAllByCompanyId(companyId);
+    }
+
+    @Override
+    public Page<Log> searchForLogs(String message, int pageNumber){
+        Pageable pageable = PageRequest.of(pageNumber - 1, 30);
+        return _logRepository.findAllByMessageContainingIgnoreCase(message, pageable);
     }
 }
