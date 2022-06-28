@@ -36,3 +36,6 @@ build/
 
 ### Profile pictures ###
 /src/main/resources/static/user-photos/**/*
+
+
+*.properties
