@@ -4,6 +4,7 @@ package com.storage.user.controller;
 import com.storage.company.domain.Company;
 import com.storage.company.service.ICompanyService;
 import com.storage.general.exception.UserAlreadyExistsException;
+import com.storage.general.service.EmailSenderService;
 import com.storage.general.utility.PasswordGenerator;
 import com.storage.restaurant.domain.Restaurant;
 import com.storage.restaurant.service.IRestaurantService;
@@ -28,11 +29,12 @@ public class UserController {
     private final IUserService _userService;
     private final IRestaurantService _restaurantService;
     private final ICompanyService _companyService;
-
-    public UserController(IUserService _userService, IRestaurantService restaurantService, ICompanyService companyService) {
+    private final EmailSenderService _emailSenderService;
+    public UserController(IUserService _userService, IRestaurantService restaurantService, ICompanyService companyService, EmailSenderService _emailSenderService) {
         this._userService = _userService;
         this._restaurantService = restaurantService;
         this._companyService = companyService;
+        this._emailSenderService = _emailSenderService;
     }
 
     @GetMapping("/employees")
@@ -105,6 +107,7 @@ public class UserController {
         }
         model.addAttribute("generatedPassword", password);
         model.addAttribute("username", employee.getUsername());
+        _emailSenderService.sendMail(employee.getEmail(), "Welcome to ProductMe", "Welcome to ProductMe, your username is: " + employee.getUsername() + " and password is: " + password);
         return "owners/employees/added_info";
     }
 
