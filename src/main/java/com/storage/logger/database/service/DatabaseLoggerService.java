@@ -1,7 +1,12 @@
 package com.storage.logger.database.service;
 
+import com.storage.company.service.CompanyService;
+import com.storage.company.service.ICompanyService;
 import com.storage.logger.database.domain.Log;
 import com.storage.logger.database.repository.LogRepository;
+import com.storage.restaurant.service.IRestaurantService;
+import com.storage.user.domain.User;
+import com.storage.user.service.IUserService;
 import com.storage.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +19,13 @@ import java.util.List;
 public class DatabaseLoggerService implements IDatabaseLoggerService {
 
     private final LogRepository _logRepository;
-    private final UserService _userService;
-    public DatabaseLoggerService(LogRepository logRepository, UserService _userService) {
-        _logRepository = logRepository;
+    private final IUserService _userService;
+    private final ICompanyService _companyService;
+
+    public DatabaseLoggerService(LogRepository logRepository, IUserService _userService, ICompanyService companyService) {
+        this._logRepository = logRepository;
         this._userService = _userService;
+        this._companyService = companyService;
     }
 
     @Override
@@ -38,7 +46,17 @@ public class DatabaseLoggerService implements IDatabaseLoggerService {
         Log log = new Log();
         log.setCreated(new Timestamp(System.currentTimeMillis()));
         log.setMessage(message);
-        if (principal != null && principal.getName() != null) log.setUserId(_userService.getUserByUsername(principal.getName()).getId());
+        if (principal != null && principal.getName() != null) {
+            User user = _userService.getUserByUsername(principal.getName());
+            log.setUserId(user.getId());
+            if(user.getRoles().equals("ROLE_OWNER")){
+                log.setCompanyId(_companyService.getCompanyByUser(user).getId());
+            }
+            else{
+                log.setCompanyId(user.getRestaurant().getCompany().getId());
+            }
+
+        }
         if (status != null) log.setStatus(status);
         if (restaurantId == 0) log.setRestaurantId(null);
         else log.setRestaurantId(restaurantId);
@@ -87,10 +105,19 @@ public class DatabaseLoggerService implements IDatabaseLoggerService {
     public List<Log> getAllLogs() {
         return _logRepository.findAll();
     }
-    @Override public List<Log> getAllLogsByRestaurantId(int restaurantId) {
+
+    @Override
+    public List<Log> getAllLogsByRestaurantId(int restaurantId) {
         return _logRepository.findAllByRestaurantId(restaurantId);
     }
-    @Override public List<Log> getAllLogsByUserId(int userId) {
+
+    @Override
+    public List<Log> getAllLogsByUserId(int userId) {
         return _logRepository.findAllByUserId(userId);
+    }
+
+    @Override
+    public List<Log> getAllLogsByCompanyId(int companyId) {
+        return _logRepository.findAllByCompanyId(companyId);
     }
 }

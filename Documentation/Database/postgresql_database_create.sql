@@ -55,6 +55,7 @@ create table Logs (
     Message varchar(1028) NOT NULL,
     Restaurant_ID int,
     User_ID integer,
+	Company_ID integer,
     Status varchar(16)
 );
 

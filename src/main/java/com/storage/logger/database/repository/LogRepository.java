@@ -8,4 +8,5 @@ import java.util.List;
 public interface LogRepository extends JpaRepository<Log, Integer> {
     List<Log> findAllByRestaurantId(Integer restaurantId);
     List<Log> findAllByUserId(Integer userId);
+    List<Log> findAllByCompanyId(Integer companyId);
 }

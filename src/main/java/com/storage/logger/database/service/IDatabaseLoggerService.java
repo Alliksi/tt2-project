@@ -24,4 +24,5 @@ public interface IDatabaseLoggerService {
     List<Log> getAllLogs();
     List<Log> getAllLogsByRestaurantId(int restaurantId);
     List<Log> getAllLogsByUserId(int userId);
+    List<Log> getAllLogsByCompanyId(int companyId);
 }

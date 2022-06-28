@@ -27,6 +27,17 @@ public class Log {
     @Column(name = "status", nullable = true, length = 16)
     private String status;
 
+    @Column(name = "company_id")
+    private Integer companyId;
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
+
     public int getLogId() {
         return logId;
     }
