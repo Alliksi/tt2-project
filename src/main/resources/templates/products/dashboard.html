@@ -33,13 +33,13 @@
                     <td th:text="${product.storageType}"></td>
                     <td th:text="${product.amountLeft}"></td>
                     <td sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="btn btn-primary" th:href="@{/admins/products/edit/{productId}(productId = ${product.productId})}">Edit</a>
+                        <a class="btn btn-secondary" th:href="@{/admins/products/edit/{productId}(productId = ${product.productId})}">Edit</a>
                     </td>
                     <td sec:authorize="hasRole('ROLE_OWNER')">
-                        <a class="btn btn-primary" th:href="@{/owners/products/edit/{productId}(productId = ${product.productId})}">Edit</a>
+                        <a class="btn btn-secondary" th:href="@{/owners/products/edit/{productId}(productId = ${product.productId})}">Edit</a>
                     </td>
                     <td sec:authorize="hasRole('ROLE_WORKER')">
-                        <a class="btn btn-primary" th:href="@{/owners/products/edit/{productId}(productId = ${product.productId})}">Edit</a>
+                        <a class="btn btn-secondary" th:href="@{/owners/products/edit/{productId}(productId = ${product.productId})}">Edit</a>
                     </td>
                 </tr>
                 </tbody>
